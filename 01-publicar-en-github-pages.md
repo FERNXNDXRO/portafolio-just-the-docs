@@ -1,5 +1,5 @@
 ---
 layout: default
-title: Publicar en GitHub Pages
+title: Evidencia 1
 nav_order: 2
 ---
