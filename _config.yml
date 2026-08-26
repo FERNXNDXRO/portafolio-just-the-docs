@@ -1,5 +1,5 @@
-title: Portafolio | Irving Fernando Rodríguez Ortega
-description: Portafolio académico de Ingeniería Mecatrónica y Sistemas Ciberfísicos
+title: Irving Fernando Rodríguez Ortega
+description: Portafolio académico | Ingeniería Mecatrónica y Sistemas Ciberfísicos | IBERO
 
 remote_theme: just-the-docs/just-the-docs
 plugins:
@@ -19,7 +19,7 @@ search:
   heading_level: 2
 
 aux_links:
-  "Ver repositorio en GitHub":
+  "GitHub":
     - "https://github.com/FERNXNDXRO/portafolio-just-the-docs"
 
 permalink: pretty
