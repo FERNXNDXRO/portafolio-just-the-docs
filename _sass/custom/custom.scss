@@ -1,0 +1,55 @@
+/* Personalización oficial de Just the Docs */
+html, body { background: #f1f5f9 !important; }
+
+.side-bar {
+  background: linear-gradient(180deg, #0b1220 0%, #172554 55%, #1e3a8a 100%) !important;
+  color: #fff !important;
+}
+
+.site-header { background: transparent !important; }
+.site-title, .site-title:visited { color: #fff !important; font-weight: 800 !important; }
+.site-title:hover { color: #bfdbfe !important; }
+
+.nav-list .nav-list-link,
+.nav-list .nav-list-link:visited {
+  color: #dbeafe !important;
+  border-radius: 10px !important;
+  margin: 5px 8px !important;
+  padding: 11px 13px !important;
+}
+
+.nav-list .nav-list-link:hover {
+  color: #fff !important;
+  background: rgba(255,255,255,.13) !important;
+}
+
+.nav-list .nav-list-link.active {
+  color: #fff !important;
+  background: #2563eb !important;
+  border-left: 4px solid #bfdbfe !important;
+  font-weight: 700 !important;
+}
+
+.main, .main-header, .main-content-wrap { background: #f1f5f9 !important; }
+
+.main-content {
+  background: #fff !important;
+  border-radius: 22px !important;
+  box-shadow: 0 12px 40px rgba(15,23,42,.09) !important;
+  margin: 28px 28px 44px !important;
+  padding: 44px 52px !important;
+}
+
+.main-content h1 {
+  color: #0f172a !important;
+  border-bottom: 4px solid #2563eb !important;
+  padding-bottom: 14px !important;
+}
+
+.main-content h2 { color: #1e3a8a !important; }
+.main-content h3 { color: #1e40af !important; }
+.main-content a { color: #1d4ed8 !important; }
+
+@media (max-width: 800px) {
+  .main-content { margin: 12px !important; padding: 25px !important; }
+}
