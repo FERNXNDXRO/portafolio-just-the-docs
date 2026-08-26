@@ -13,6 +13,7 @@ just_the_docs:
   custom_css:
     - "assets/css/custom.css"
   footer_content: ""
+  last_edit_timestamp: false
 
 search_enabled: true
 search:
