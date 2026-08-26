@@ -8,11 +8,19 @@ nav_order: 2
 
 ## Irving Fernando Rodríguez Ortega
 
-Soy estudiante de **Ingeniería Mecatrónica y Sistemas Ciberfísicos en la IBERO**. Me interesa comprender cómo se pueden combinar la tecnología, la programación, la electrónica y los sistemas físicos para crear soluciones útiles.
+<div class="profile-card">
+  <div class="profile-photo">
+    <img src="{{ '/assets/img/irving.jpg' | relative_url }}" alt="Fotografía de Irving Fernando Rodríguez Ortega">
+  </div>
+  <div class="profile-intro">
+    <p><strong>Ingeniería Mecatrónica y Sistemas Ciberfísicos · IBERO</strong></p>
+    <p>Este es mi espacio personal dentro del portafolio. Aquí comparto parte de mi formación, mis intereses y el proceso que voy construyendo durante la carrera.</p>
+  </div>
+</div>
 
 ### 🎓 Formación
 
-Actualmente estoy construyendo mi formación universitaria en el área de mecatrónica y sistemas ciberfísicos. Este portafolio forma parte de ese proceso y será un registro de los proyectos, actividades y conocimientos que vaya desarrollando.
+Actualmente estoy construyendo mi formación universitaria en **Ingeniería Mecatrónica y Sistemas Ciberfísicos en la IBERO**. Este portafolio forma parte de ese proceso y será un registro de los proyectos, actividades y conocimientos que vaya desarrollando.
 
 ### ⚙️ Lo que me interesa
 
@@ -26,16 +34,10 @@ Actualmente estoy construyendo mi formación universitaria en el área de mecatr
 
 Mi objetivo es seguir desarrollando habilidades técnicas y de resolución de problemas para participar en proyectos donde la tecnología pueda convertirse en soluciones reales.
 
-### 📷 Mi espacio personal
+### 💡 ¿Qué quiero mostrar en este portafolio?
 
-Aquí colocaré una fotografía personal para que el portafolio también tenga una identidad propia.
-
-> **Nota:** agrega tu fotografía en `assets/img/irving.jpg` y después descomenta la siguiente línea:
->
-> `![Fotografía de Irving](assets/img/irving.jpg)`
+Más que una colección de tareas, quiero que este sitio muestre **mi proceso de aprendizaje**: qué hice, cómo lo hice, qué problemas encontré y qué aprendí de cada proyecto.
 
 ---
 
-### Un poco sobre este portafolio
-
-Este sitio no busca ser solamente una colección de tareas. Quiero utilizarlo para mostrar **mi proceso**, mis avances y lo que voy aprendiendo durante la carrera.
+> **Este portafolio irá creciendo conmigo durante la carrera.**
