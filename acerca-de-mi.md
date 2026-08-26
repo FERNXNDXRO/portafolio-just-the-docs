@@ -14,30 +14,46 @@ nav_order: 2
   </div>
   <div class="profile-intro">
     <p><strong>Ingeniería Mecatrónica y Sistemas Ciberfísicos · IBERO</strong></p>
-    <p>Este es mi espacio personal dentro del portafolio. Aquí comparto parte de mi formación, mis intereses y el proceso que voy construyendo durante la carrera.</p>
+    <p>Este es mi espacio personal dentro del portafolio. Aquí comparto mi formación, mis intereses y el trabajo que voy construyendo durante la carrera.</p>
   </div>
 </div>
 
-### 🎓 Formación
+## 🎓 Mi formación
 
-Actualmente estoy construyendo mi formación universitaria en **Ingeniería Mecatrónica y Sistemas Ciberfísicos en la IBERO**. Este portafolio forma parte de ese proceso y será un registro de los proyectos, actividades y conocimientos que vaya desarrollando.
+Actualmente estudio **Ingeniería Mecatrónica y Sistemas Ciberfísicos en la IBERO**. Me interesa aprender cómo se pueden combinar la tecnología, la programación, la electrónica y los sistemas físicos para desarrollar proyectos y soluciones.
 
-### ⚙️ Lo que me interesa
+## ⚙️ Lo que me interesa
 
-- Programación y desarrollo de proyectos tecnológicos.
-- Mecatrónica, electrónica y sistemas físicos.
-- Automatización y resolución de problemas.
-- Aprender mediante proyectos y experimentación.
-- Crear soluciones que tengan una aplicación práctica.
+Me llaman especialmente la atención la programación, la electrónica, la automatización, la mecatrónica y el desarrollo de proyectos tecnológicos. Me gusta aprender haciendo y resolver problemas de una manera práctica.
 
-### 🚀 Mi objetivo
+## 🏀🎮 Lo que me gusta hacer
+
+Fuera de la universidad también tengo actividades que disfruto en mi tiempo libre. Me gusta jugar **básquetbol**, ir al **gimnasio** y jugar **videojuegos**. Son actividades que me ayudan a despejarme y mantener un equilibrio entre la universidad y mi tiempo personal.
+
+<div class="interest-grid">
+  <div class="interest-card">
+    <div class="interest-icon">🏀</div>
+    <h3>Básquetbol</h3>
+    <p>Me gusta jugar básquetbol y pasar tiempo practicando este deporte.</p>
+  </div>
+  <div class="interest-card">
+    <div class="interest-icon">🏋️</div>
+    <h3>Gimnasio</h3>
+    <p>Es una de las actividades que disfruto para mantenerme activo y despejarme.</p>
+  </div>
+  <div class="interest-card">
+    <div class="interest-icon">🎮</div>
+    <h3>Videojuegos</h3>
+    <p>Me gusta jugar videojuegos en mi tiempo libre y disfrutar diferentes tipos de juegos.</p>
+  </div>
+</div>
+
+## 🚀 Mi objetivo
 
 Mi objetivo es seguir desarrollando habilidades técnicas y de resolución de problemas para participar en proyectos donde la tecnología pueda convertirse en soluciones reales.
 
-### 💡 ¿Qué quiero mostrar en este portafolio?
+## 💡 Sobre este portafolio
 
-Más que una colección de tareas, quiero que este sitio muestre **mi proceso de aprendizaje**: qué hice, cómo lo hice, qué problemas encontré y qué aprendí de cada proyecto.
-
----
+Quiero que este sitio sea más que una colección de tareas. La idea es utilizarlo para mostrar **mi proceso de aprendizaje semana por semana**: qué hice, cómo lo hice, las evidencias del trabajo y qué aprendí en cada actividad.
 
 > **Este portafolio irá creciendo conmigo durante la carrera.**
