@@ -18,15 +18,15 @@ nav_order: 2
   </div>
 </div>
 
-## 🎓 Mi formación
+##  Mi formación
 
 Actualmente estudio **Ingeniería Mecatrónica y Sistemas Ciberfísicos en la IBERO**. Me interesa aprender cómo se pueden combinar la tecnología, la programación, la electrónica y los sistemas físicos para desarrollar proyectos y soluciones.
 
-## ⚙️ Lo que me interesa
+##  Lo que me interesa
 
 Me llaman especialmente la atención la programación, la electrónica, la automatización, la mecatrónica y el desarrollo de proyectos tecnológicos. Me gusta aprender haciendo y resolver problemas de una manera práctica.
 
-## 🏀🎮 Lo que me gusta hacer
+##  Lo que me gusta hacer
 
 Fuera de la universidad también tengo actividades que disfruto en mi tiempo libre. Me gusta jugar **básquetbol**, ir al **gimnasio** y jugar **videojuegos**. Son actividades que me ayudan a despejarme y mantener un equilibrio entre la universidad y mi tiempo personal.
 
@@ -48,11 +48,11 @@ Fuera de la universidad también tengo actividades que disfruto en mi tiempo lib
   </div>
 </div>
 
-## 🚀 Mi objetivo
+##  Mi objetivo
 
 Mi objetivo es seguir desarrollando habilidades técnicas y de resolución de problemas para participar en proyectos donde la tecnología pueda convertirse en soluciones reales.
 
-## 💡 Sobre este portafolio
+##  Sobre este portafolio
 
 Quiero que este sitio sea más que una colección de tareas. La idea es utilizarlo para mostrar **mi proceso de aprendizaje semana por semana**: qué hice, cómo lo hice, las evidencias del trabajo y qué aprendí en cada actividad.
 
