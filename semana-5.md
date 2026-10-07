@@ -1,15 +1,80 @@
 ---
 layout: default
-title: Semana 5
+title: "Semana 5: Ensamble y control del brazo robot"
 nav_order: 7
 ---
 
-# Semana 5
+# Semana 5: Ensamble y control del brazo robot
 
-Esta sección está preparada para documentar la actividad correspondiente a la Semana 5.
+En esta semana ensamblamos el brazo de MDF y conectamos sus cuatro servomotores SG90 al Arduino. Cada potenciómetro controla un servo: al girarlo, cambia el ángulo del motor correspondiente.
 
-## Actividad
+## Materiales y componentes
 
-**Pendiente de agregar.**
+- Arduino Uno.
+- 4 servomotores SG90.
+- 4 potenciómetros (se recomienda 10 kΩ).
+- Piezas del brazo cortadas en MDF de 3 mm.
+- Cables jumper y conexiones para los servos.
+- Tornillos, tuercas y separadores para ensamblar las piezas.
+- Fuente regulada de 5 V con corriente suficiente para los servos.
 
-Aquí se incorporará la descripción, el procedimiento, las evidencias y los aprendizajes.
+## Conexiones
+
+| Control | Potenciómetro | Señal del servo | Movimiento |
+|---|---|---|---|
+| 1 | A0 | D3 | Base |
+| 2 | A1 | D5 | Hombro |
+| 3 | A2 | D6 | Codo |
+| 4 | A3 | D9 | Pinza |
+
+En cada potenciómetro, conecta una terminal exterior a **5 V**, la otra a **GND** y la terminal central a la entrada analógica indicada. En cada servo, conecta señal al pin indicado, alimentación roja a **5 V** y cable café/negro a **GND**.
+
+**Alimentación:** cuatro servos pueden consumir más corriente de la que el pin 5 V del Arduino puede entregar. Usa una fuente regulada externa de 5 V adecuada para los servos y conecta su GND al GND del Arduino. No conectes la salida positiva de la fuente externa al pin 5 V del Arduino.
+
+## Código Arduino
+
+El programa lee las cuatro entradas analógicas, convierte cada lectura (0–1023) en un ángulo (0–180°) y manda el ángulo al servo correspondiente. Si algún mecanismo se fuerza contra el MDF, ajusta sus límites mecánicos y el rango del ángulo antes de seguir probando.
+
+```cpp
+#include <Servo.h>
+
+const byte NUM_SERVOS = 4;
+const byte pinesPot[NUM_SERVOS]  = {A0, A1, A2, A3};
+const byte pinesServo[NUM_SERVOS] = {3, 5, 6, 9};
+
+Servo servos[NUM_SERVOS];
+int angulos[NUM_SERVOS] = {90, 90, 90, 90};
+
+void setup() {
+  for (byte i = 0; i < NUM_SERVOS; i++) {
+    servos[i].attach(pinesServo[i]);
+    servos[i].write(angulos[i]);  // posición inicial
+  }
+}
+
+void loop() {
+  for (byte i = 0; i < NUM_SERVOS; i++) {
+    int lectura = analogRead(pinesPot[i]);        // valor de 0 a 1023
+    int angulo = map(lectura, 0, 1023, 0, 180);  // convertir a grados
+    angulo = constrain(angulo, 0, 180);
+    servos[i].write(angulo);
+  }
+
+  delay(15); // pausa breve para que los servos sigan el movimiento
+}
+```
+
+## Instrucciones para cargar y probar
+
+1. Conecta el Arduino Uno a la computadora y abre Arduino IDE.
+2. Selecciona la placa **Arduino Uno** y el puerto correspondiente.
+3. Verifica que esté disponible la biblioteca **Servo** (viene incluida en Arduino IDE).
+4. Copia el código, pulsa **Verificar** y después **Subir**.
+5. Conecta los cuatro potenciómetros y los servos según la tabla. Revisa polaridad y tierra común antes de encender.
+6. Enciende la fuente externa de 5 V. Gira un potenciómetro a la vez y confirma que se mueve únicamente el servo asignado.
+7. Si un servo zumba, se calienta o intenta forzar una articulación, apaga la fuente y corrige el sentido, el montaje o el rango de movimiento.
+8. Prueba la pinza con una pelota de 6 cm. Registra si logra sujetarla durante 5 segundos y agrega aquí el video de evidencia.
+
+## Resultado y evidencia
+
+El brazo ensamblado integra la base, las articulaciones, la pinza, cuatro servos y el Arduino. En esta sección se documentan las pruebas de movimiento y su resultado.
