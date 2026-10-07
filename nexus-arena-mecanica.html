@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXUS: ARENA MECÁNICA</title>
     <style>
     :root{color-scheme:dark;--mint:#73f8d1;--coral:#ff6b7a;--gold:#f0bd68;--line:rgba(187,235,225,.14)}
@@ -26,13 +26,17 @@
     .t-btn{width:52px;height:52px;border:1px solid rgba(166,255,224,.55);border-radius:15px;color:#e9fff7;background:rgba(6,18,20,.74);backdrop-filter:blur(8px);box-shadow:0 8px 18px rgba(0,0,0,.35);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}.t-btn:active{transform:scale(.94);background:rgba(65,177,148,.6)}
     @media(max-width:720px){body{padding:0}#game-container{width:100vw;max-height:100svh;border-radius:0;border-left:0;border-right:0}#main-menu{width:72%;padding-left:5%}.screen{padding:18px}#touch-controls{display:flex;bottom:8px;padding:0 9px}.t-btn{width:45px;height:45px;border-radius:13px}.touch-group{gap:6px}.btn{min-width:110px;padding:11px 14px;font-size:.73rem}.controls-grid{gap:6px;padding:10px}}
     @media(max-width:470px){#main-menu{width:82%}#main-menu p{max-width:275px}.controls-grid div{padding:7px;font-size:.72rem}}
+    .toast{position:absolute;z-index:12;left:50%;top:72px;transform:translate(-50%,-10px);padding:12px 20px;border:1px solid rgba(115,248,209,.48);border-radius:999px;background:rgba(5,16,19,.92);color:#dffdf3;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 28px rgba(115,248,209,.12);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap}.toast.visible{opacity:1;transform:translate(-50%,0)}
+    .menu-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:18px;border:1px solid rgba(115,248,209,.23);border-radius:999px;background:rgba(115,248,209,.07);color:#a9e8d4;font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.menu-kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:#78f6cc;box-shadow:0 0 12px #78f6cc}
+    .btn.secondary{background:rgba(9,23,27,.78);border-color:rgba(187,235,225,.2);color:#c5d7d1}.btn.secondary:first-child{color:#c5d7d1;background:rgba(9,23,27,.78);border-color:rgba(187,235,225,.2)}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
 <body>
 
     <div id="game-container">
-        <canvas id="gameCanvas" width="900" height="550"></canvas>
+        <canvas id="gameCanvas" width="900" height="550" aria-label="Videojuego NEXUS: Arena Mecánica"></canvas>
+        <div id="stage-toast" class="toast" role="status" aria-live="polite"></div>
 
         <!-- CONTROLES TÁCTILES MÓVILES -->
         <div id="touch-controls">
@@ -49,13 +53,15 @@
 
         <!-- MENÚ PRINCIPAL -->
         <div id="main-menu" class="screen">
+            <div class="menu-kicker">Protocolo de recuperación · 6 sectores</div>
             <h1>NEXUS</h1>
             <h2>ARENA MECÁNICA</h2>
-            <p>Año 2147: Una red de IA ha corrompido las instalaciones de investigación. Controla al robot de mantenimiento <b>N-07</b>, supera los niveles de seguridad, recolecta núcleos de energía y neutraliza al temible Archon.</p>
+            <p>La red de seguridad perdió el control. Pilotea a <b>N-07</b> por seis sectores, reúne energía, sobrevive a las máquinas y recupera el núcleo central.</p>
             <div>
-                <button class="btn" onclick="startGame()">Jugar</button>
-                <button class="btn" onclick="showScreen('controls-screen')">Controles</button>
-                <button class="btn" onclick="showScreen('story-screen')">Historia</button>
+                <button class="btn" onclick="startGame()">Iniciar misión</button>
+                <button class="btn secondary" onclick="showScreen('controls-screen')">Controles</button>
+                <button class="btn secondary" onclick="showScreen('story-screen')">Historia</button>
+                <button class="btn secondary" onclick="toggleFullscreen()">Pantalla completa</button>
             </div>
         </div>
 
@@ -77,7 +83,7 @@
         <!-- PANTALLA DE HISTORIA -->
         <div id="story-screen" class="screen hidden">
             <h1>HISTORIA</h1>
-            <p>Las instalaciones subterráneas de la corporación tecnológica estaban gobernadas por el superordenador NEXUS. Un fallo desconocido transformó las unidades autónomas en máquinas destructivas.<br><br><b>N-07</b>, un veterano robot de mantenimiento equipado con armamento defensivo de emergencia, es la única unidad operativa capaz de descender al Núcleo Central y restablecer el sistema.</p>
+            <p>Las instalaciones de investigación estaban gobernadas por el superordenador NEXUS. Una corrupción se extendió desde el laboratorio hasta la forja, convirtiendo a las unidades autónomas en máquinas hostiles.<br><br><b>N-07</b> debe cruzar seis sectores, recuperar energía y enfrentarse a Archon para restaurar el sistema.</p>
             <button class="btn" onclick="showScreen('main-menu')">Volver</button>
         </div>
 
@@ -187,6 +193,11 @@
         let coresCollected = 0;
         let levelCoresCollected = 0;
         let totalCoresInLevel = 3;
+        let toastTimer=0;
+        function bestScore(){try{return Number(localStorage.getItem("nexus-best-score")||0)}catch(e){return 0}}
+        function saveBestScore(){try{if(score>bestScore())localStorage.setItem("nexus-best-score",String(score))}catch(e){}}
+        function showToast(message){const el=document.getElementById("stage-toast");el.textContent=message;el.classList.add("visible");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("visible"),2200);}
+        function toggleFullscreen(){const box=document.getElementById("game-container");if(!document.fullscreenElement)box.requestFullscreen?.();else document.exitFullscreen?.();}
 
         let camera = { x: 0, y: 0, width: 900, height: 550 };
         let screenShake = 0;
@@ -205,12 +216,14 @@
             }
         });
         window.addEventListener('keyup', e => { keys[e.code] = false; });
+        window.addEventListener('blur', () => { keys = {}; });
 
         // Controles Táctiles
         function setupTouchBtn(id, code) {
             const el = document.getElementById(id);
             el.addEventListener('touchstart', (e) => { e.preventDefault(); keys[code] = true; initAudio(); });
             el.addEventListener('touchend', (e) => { e.preventDefault(); keys[code] = false; });
+            el.addEventListener('touchcancel', () => { keys[code] = false; });
         }
         setupTouchBtn('t-left', 'ArrowLeft');
         setupTouchBtn('t-right', 'ArrowRight');
@@ -324,6 +337,29 @@
                     }
                 ];
                 portal = null;
+            } else if (levelNum === 4) {
+                // NIVEL 4: Jardín de Silicio
+                totalCoresInLevel=4;
+                platforms=[{x:0,y:500,width:1850,height:50,type:'metal'},{x:0,y:0,width:1850,height:30,type:'metal'},{x:170,y:410,width:165,height:20,type:'platform'},{x:390,y:330,width:170,height:20,type:'platform'},{x:645,y:250,width:190,height:20,type:'platform'},{x:900,y:360,width:160,height:20,type:'platform'},{x:1140,y:280,width:180,height:20,type:'platform'},{x:1400,y:390,width:170,height:20,type:'platform'},{x:1630,y:310,width:170,height:20,type:'platform'}];
+                cores=[{x:430,y:280,collected:false},{x:700,y:200,collected:false},{x:1195,y:230,collected:false},{x:1680,y:260,collected:false}];
+                enemies=[{type:'drone',x:260,y:365,startX:180,endX:330,dir:1,speed:2.4,hp:35,maxHp:35,width:30,height:25},{type:'guard',x:690,y:205,dir:-1,shootTimer:0,hp:65,maxHp:65,width:36,height:42},{type:'jumper',x:980,y:450,vx:0,vy:0,jumpTimer:0,hp:45,maxHp:45,width:30,height:30},{type:'turret',x:1210,y:220,shootTimer:0,hp:75,maxHp:75,width:32,height:40},{type:'drone',x:1500,y:345,startX:1420,endX:1560,dir:-1,speed:2.8,hp:38,maxHp:38,width:30,height:25}];
+                portal={x:1780,y:430,width:40,height:70,active:false};
+            } else if (levelNum === 5) {
+                // NIVEL 5: Forja de Titanio
+                totalCoresInLevel=5;
+                platforms=[{x:0,y:500,width:1900,height:50,type:'metal'},{x:0,y:0,width:1900,height:30,type:'metal'},{x:150,y:385,width:170,height:20,type:'platform'},{x:385,y:290,width:170,height:20,type:'platform'},{x:650,y:380,width:170,height:20,type:'platform'},{x:900,y:270,width:190,height:20,type:'platform'},{x:1180,y:350,width:170,height:20,type:'platform'},{x:1430,y:245,width:190,height:20,type:'platform'},{x:1690,y:385,width:160,height:20,type:'platform'}];
+                cores=[{x:435,y:240,collected:false},{x:700,y:330,collected:false},{x:965,y:220,collected:false},{x:1485,y:195,collected:false},{x:1730,y:335,collected:false}];
+                enemies=[{type:'drone',x:230,y:340,startX:160,endX:320,dir:1,speed:2.8,hp:40,maxHp:40,width:30,height:25},{type:'elite',x:690,y:430,dir:-1,moveTimer:0,hp:115,maxHp:115,width:40,height:48},{type:'turret',x:950,y:230,shootTimer:0,hp:82,maxHp:82,width:32,height:40},{type:'guard',x:1450,y:203,dir:1,shootTimer:0,hp:75,maxHp:75,width:36,height:42},{type:'jumper',x:1660,y:450,vx:0,vy:0,jumpTimer:0,hp:50,maxHp:50,width:30,height:30}];
+                portal={x:1825,y:430,width:40,height:70,active:false};
+            } else if (levelNum === 6) {
+                // NIVEL 6: Última Defensa - enfrentamiento final
+                totalCoresInLevel=0;
+                platforms=[{x:0,y:500,width:1200,height:50,type:'metal'},{x:0,y:0,width:1200,height:30,type:'metal'},{x:130,y:390,width:155,height:20,type:'platform'},{x:350,y:300,width:145,height:20,type:'platform'},{x:705,y:300,width:145,height:20,type:'platform'},{x:920,y:390,width:155,height:20,type:'platform'}];
+                cores=[];
+                enemies=[{type:'boss',x:700,y:355,hp:620,maxHp:620,width:108,height:125,phase:1,attackTimer:0,moveDir:-1,shield:false}];
+                portal=null;
+            } else {
+                portal=null;
             }
         }
 
@@ -340,6 +376,7 @@
             coresCollected = 0;
             loadLevel(1);
             gameState = "PLAYING";
+            showToast("MISIÓN INICIADA · SECTOR 01");
             document.getElementById('main-menu').classList.add('hidden');
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('gameover-screen').classList.add('hidden');
@@ -372,6 +409,7 @@
         }
 
         function triggerGameOver() {
+            saveBestScore();
             gameState = "GAMEOVER";
             playSound('explosion');
             document.getElementById('go-stats').innerText = `Puntuación: ${score} | Nivel: ${currentLevel}`;
@@ -379,6 +417,7 @@
         }
 
         function triggerVictory() {
+            saveBestScore();
             gameState = "VICTORY";
             playSound('core');
             document.getElementById('vic-stats').innerText = `Puntuación Final: ${score} | Enemigos Derrotados: ${enemiesDefeated}`;
@@ -464,7 +503,7 @@
             resolveCollisionsY(player);
 
             // Límites del mapa por nivel
-            let mapWidth = currentLevel === 1 ? 1400 : (currentLevel === 2 ? 1600 : 1000);
+            let mapWidth = [0,1400,1600,1000,1850,1900,1200][currentLevel] || 1400;
             if (player.x < 0) player.x = 0;
             if (player.x + player.width > mapWidth) player.x = mapWidth - player.width;
             if (player.y > canvas.height + 100) {
@@ -536,12 +575,15 @@
                     e.x += e.moveDir * 1.5;
                     if (e.x < 550 || e.x > 850) e.moveDir *= -1;
 
-                    if (e.attackTimer > 60) {
-                        e.attackTimer = 0;
-                        playSound('shoot');
-                        // Disparar patrón circular / ráfaga
-                        for (let a = -1; a <= 1; a++) {
-                            projectiles.push({ x: e.x + 35, y: e.y + 40, vx: a * 4, vy: -3, radius: 6, fromPlayer: false, color: '#ff0055' });
+                    e.phase = e.hp < e.maxHp * .5 ? 2 : 1;
+                    if (e.attackTimer > (e.phase === 2 ? 38 : 58)) {
+                        e.attackTimer=0; playSound('shoot');
+                        const cx=e.x+e.width/2, cy=e.y+e.height/2;
+                        const dx=(player.x+player.width/2)-cx, dy=(player.y+player.height/2)-cy;
+                        const base=Math.atan2(dy,dx), spread=e.phase===2?.34:.2, count=e.phase===2?5:3;
+                        for(let n=0;n<count;n++){
+                            const angle=base+(n-(count-1)/2)*spread, speed=e.phase===2?5.2:4.2;
+                            projectiles.push({x:cx,y:cy,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,radius:e.phase===2?7:6,fromPlayer:false,color:e.phase===2?'#ff9a62':'#ff5577'});
                         }
                     }
                 }
@@ -600,7 +642,8 @@
                                     particles.push({ x: en.x + en.width/2, y: en.y + en.height/2, vx: (Math.random()-0.5)*6, vy: (Math.random()-0.5)*6, life: 25, color: '#ff3366', size: 5 });
                                 }
                                 if (en.type === 'boss') {
-                                    triggerVictory();
+                                    if(currentLevel<6){const cleared=currentLevel;loadLevel(cleared+1);showToast("SECTOR 0"+cleared+" COMPLETADO · NUEVA ZONA");}
+                                    else triggerVictory();
                                 }
                             }
                             break;
@@ -630,8 +673,8 @@
             // --- CHECAR PORTAL DE NIVEL ---
             if (portal && portal.active) {
                 if (Math.hypot((player.x + player.width/2) - (portal.x + portal.width/2), (player.y + player.height/2) - (portal.y + portal.height/2)) < 35) {
-                    if (currentLevel < 3) {
-                        loadLevel(currentLevel + 1);
+                    if (currentLevel < 6) {
+                        const next=currentLevel+1;loadLevel(next);showToast("SECTOR 0"+next+" · OBJETIVO ACTUALIZADO");
                     }
                 }
             }
@@ -679,8 +722,8 @@
             ctx.clearRect(0,0,canvas.width,canvas.height);
             if(gameState==="MENU"){drawMenuBackdrop();return;}
             ctx.save();const sx=(Math.random()-.5)*screenShake,sy=(Math.random()-.5)*screenShake;ctx.translate(-camera.x+sx,sy);
-            const mapWidth=currentLevel===1?1400:(currentLevel===2?1600:1000);
-            const palettes=[["#071116","#10242a","#43d8b2"],["#111018","#28232e","#d98668"],["#100d17","#251326","#de4f83"]],pal=palettes[currentLevel-1]||palettes[0];
+            const mapWidth=[0,1400,1600,1000,1850,1900,1200][currentLevel]||1400;
+            const palettes=[["#071116","#10242a","#43d8b2"],["#111018","#28232e","#d98668"],["#100d17","#251326","#de4f83"],["#091710","#18352c","#8fe66c"],["#1c100c","#3a2119","#ff934e"],["#140b18","#35152c","#ff5577"]],pal=palettes[currentLevel-1]||palettes[0];
             const sky=ctx.createLinearGradient(camera.x,0,camera.x+camera.width,canvas.height);sky.addColorStop(0,pal[0]);sky.addColorStop(.55,pal[1]);sky.addColorStop(1,"#080d11");ctx.fillStyle=sky;ctx.fillRect(camera.x,0,mapWidth,canvas.height);
             ctx.save();const px=camera.x*.24;
             for(let i=0;i<9;i++){const x=i*205-px%205;ctx.fillStyle=i%2?"rgba(151,183,169,.045)":"rgba(151,183,169,.075)";ctx.beginPath();ctx.moveTo(x,48);ctx.lineTo(x+86,48);ctx.lineTo(x+42,430);ctx.lineTo(x-20,430);ctx.fill();ctx.fillStyle=pal[2];ctx.globalAlpha=.08+Math.sin(Date.now()/520+i)*.025;ctx.fillRect(x+27,104,2,162);ctx.globalAlpha=1;ctx.strokeStyle="rgba(191,225,213,.09)";ctx.strokeRect(x+12,86,50,240);}
@@ -699,7 +742,7 @@
             if(e.type==="drone"){ctx.fillStyle="#344548";ctx.beginPath();ctx.moveTo(x+2,y+12);ctx.lineTo(x+9,y+3);ctx.lineTo(x+w-7,y+3);ctx.lineTo(x+w-1,y+13);ctx.lineTo(x+w-6,y+h-2);ctx.lineTo(x+5,y+h-2);ctx.closePath();ctx.fill();ctx.strokeStyle="#a9bbb2";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-5,y+4);ctx.lineTo(x+7,y+4);ctx.moveTo(x+w-6,y+4);ctx.lineTo(x+w+5,y+4);ctx.stroke();ctx.fillStyle="#ff7787";ctx.fillRect(x+10,y+9,10,4);}
             else if(e.type==="jumper"){ctx.fillStyle="#49364a";ctx.beginPath();ctx.arc(x+w/2,y+h/2,w/2,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#dc8dc4";ctx.lineWidth=2;ctx.stroke();ctx.fillStyle="#ff91d2";ctx.beginPath();ctx.arc(x+w/2,y+h/2,5,0,Math.PI*2);ctx.fill();for(let i=0;i<4;i++){const a=i*Math.PI/2;ctx.beginPath();ctx.moveTo(x+w/2+Math.cos(a)*11,y+h/2+Math.sin(a)*11);ctx.lineTo(x+w/2+Math.cos(a)*18,y+h/2+Math.sin(a)*18);ctx.stroke();}}
             else if(e.type==="turret"){ctx.fillStyle=g;ctx.fillRect(x+3,y+13,w-6,h-13);ctx.fillStyle="#8c9d94";ctx.beginPath();ctx.arc(x+w/2,y+14,12,Math.PI,0);ctx.fill();ctx.fillStyle="#ff6d7d";ctx.shadowBlur=15;ctx.beginPath();ctx.arc(x+w/2,y+15,4,0,Math.PI*2);ctx.fill();ctx.fillStyle="#172225";ctx.fillRect(x-5,y+h-5,w+10,5);}
-            else if(e.type==="boss"){ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x+8,y+9);ctx.lineTo(x+20,y);ctx.lineTo(x+w-13,y);ctx.lineTo(x+w-3,y+14);ctx.lineTo(x+w,y+h-8);ctx.lineTo(x+w-16,y+h);ctx.lineTo(x+9,y+h-3);ctx.lineTo(x,y+h-18);ctx.closePath();ctx.fill();ctx.strokeStyle="#e57a8e";ctx.lineWidth=2;ctx.stroke();ctx.shadowColor="#ff4d75";ctx.shadowBlur=20;ctx.fillStyle="#9cfff0";ctx.beginPath();ctx.ellipse(x+w/2,y+34,21,9,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="#15262a";ctx.beginPath();ctx.ellipse(x+w/2,y+34,9,5,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle="rgba(0,0,0,.8)";ctx.fillRect(x-20,y-23,w+40,8);ctx.fillStyle="#ff657b";ctx.fillRect(x-18,y-21,(e.hp/e.maxHp)*(w+36),4);ctx.fillStyle="#ffd1d7";ctx.font="700 9px system-ui";ctx.fillText("ARCHON",x+15,y-28);}
+            else if(e.type==="boss"){ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(x+8,y+9);ctx.lineTo(x+20,y);ctx.lineTo(x+w-13,y);ctx.lineTo(x+w-3,y+14);ctx.lineTo(x+w,y+h-8);ctx.lineTo(x+w-16,y+h);ctx.lineTo(x+9,y+h-3);ctx.lineTo(x,y+h-18);ctx.closePath();ctx.fill();ctx.strokeStyle="#e57a8e";ctx.lineWidth=2;ctx.stroke();ctx.shadowColor="#ff4d75";ctx.shadowBlur=20;ctx.fillStyle="#9cfff0";ctx.beginPath();ctx.ellipse(x+w/2,y+34,21,9,0,0,Math.PI*2);ctx.fill();ctx.fillStyle="#15262a";ctx.beginPath();ctx.ellipse(x+w/2,y+34,9,5,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle="rgba(0,0,0,.8)";ctx.fillRect(x-20,y-23,w+40,8);ctx.fillStyle="#ff657b";ctx.fillRect(x-18,y-21,(e.hp/e.maxHp)*(w+36),4);ctx.fillStyle="#ffd1d7";ctx.font="700 9px system-ui";ctx.fillText(currentLevel===6?"ARCHON · FASE "+(e.phase||1):"GUARDIÁN",x+10,y-28);}
             else{ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(x+2,y+3,w-4,h-3,6);ctx.fill();ctx.strokeStyle="rgba(228,238,225,.48)";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#0d1518";ctx.fillRect(x+6,y+10,w-12,10);ctx.fillStyle=e.type==="elite"?"#ffd36e":"#ff7583";ctx.shadowBlur=9;ctx.fillRect(x+10,y+13,w-20,3);ctx.fillStyle="#81918b";ctx.fillRect(x+6,y+h-7,8,8);ctx.fillRect(x+w-14,y+h-7,8,8);}
             if(e.type!=="boss"&&e.hp<e.maxHp){ctx.shadowBlur=0;ctx.fillStyle="rgba(0,0,0,.65)";ctx.fillRect(x,y-7,w,3);ctx.fillStyle="#ff7180";ctx.fillRect(x,y-7,w*Math.max(0,e.hp/e.maxHp),3);}ctx.restore();
         }
@@ -716,7 +759,7 @@
             ctx.fillStyle="#d7e7df";ctx.font="800 10px system-ui";ctx.fillText("N-07",20,18);ctx.fillStyle="#7c9990";ctx.font="700 8px system-ui";ctx.fillText("UNIDAD DE MANTENIMIENTO",20,31);
             ctx.fillStyle="#ff7b88";ctx.font="700 9px system-ui";ctx.fillText("INTEGRIDAD",190,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(190,24,128,9);ctx.fillStyle="#ff6879";ctx.fillRect(190,24,128*Math.max(0,player.hp/player.maxHp),9);
             ctx.fillStyle="#75f3cd";ctx.fillText("ENERGÍA",338,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(338,24,105,9);ctx.fillStyle="#54dcb8";ctx.fillRect(338,24,105*Math.max(0,player.energy/player.maxEnergy),9);
-            const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL"];ctx.fillStyle="#eaf5ef";ctx.font="800 10px system-ui";ctx.fillText(names[currentLevel-1]||"SECTOR",486,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("SECTOR 0"+currentLevel+" / 03",486,34);
+            const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL","JARDÍN DE SILICIO","FORJA DE TITANIO","ÚLTIMA DEFENSA"];ctx.fillStyle="#eaf5ef";ctx.font="800 10px system-ui";ctx.fillText(names[currentLevel-1]||"SECTOR",486,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("SECTOR 0"+currentLevel+" / 06",486,34);
             ctx.fillStyle="#f0bd68";ctx.font="700 9px system-ui";ctx.fillText("NÚCLEOS "+levelCoresCollected+" / "+totalCoresInLevel,626,20);ctx.fillStyle="#d3e2db";ctx.font="800 10px system-ui";ctx.fillText(String(score).padStart(6,"0"),786,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("PUNTUACIÓN",786,34);
             ctx.fillStyle="rgba(5,12,15,.82)";ctx.fillRect(0,516,900,34);ctx.fillStyle="rgba(115,248,209,.16)";ctx.fillRect(0,516,900,1);ctx.fillStyle="#829790";ctx.font="700 8px system-ui";ctx.fillText("A / D MOVER",20,537);ctx.fillText("W SALTAR",143,537);ctx.fillText("ESPACIO DISPARAR",253,537);ctx.fillText("SHIFT IMPULSO",408,537);ctx.fillStyle=portal&&portal.active?"#87f5cf":"#e5ba75";ctx.fillText(portal?(portal.active?"OBJETIVO · VE A LA SALIDA":"OBJETIVO · BUSCA LOS NÚCLEOS"):"OBJETIVO · DESTRUYE ARCHON",622,537);ctx.restore();
         }
