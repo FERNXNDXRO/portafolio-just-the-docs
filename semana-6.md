@@ -1,22 +1,26 @@
 ---
 layout: default
-title: Semana 6
+title: "Semana 6: Ingeniería de prompting"
 nav_order: 8
 ---
 
-# Semana 6: Videojuego NEXUS: Arena Mecánica
+# Semana 6: Ingeniería de prompting y videojuego
 
-En esta actividad desarrollé un videojuego de plataformas en 2D con **HTML, CSS y JavaScript**. El jugador controla a N-07, un robot que debe avanzar por instalaciones mecánicas, evitar o derrotar enemigos y reunir núcleos de energía hasta llegar al enfrentamiento final.
+## Reto del profesor
 
-## Jugar
+Crear un videojuego con **HTML, CSS y JavaScript**, publicarlo en GitHub Pages y vincularlo desde el repositorio. La actividad también pide usar contexto, probar instrucciones y refinar el resultado de manera iterativa.
 
-[**ABRIR NEXUS: ARENA MECÁNICA**](nexus-arena-mecanica.html){: .btn .btn-primary target="_blank" }
+## NEXUS: Arena Mecánica
 
-También puedes jugarlo directamente aquí. Si no aparece el juego, usa el botón de arriba.
+Desarrollé un videojuego de plataformas 2D de ciencia ficción. El jugador controla al robot N-07, reúne núcleos de energía, evita o combate enemigos y avanza hasta el enfrentamiento final contra Archon.
+
+<a class="btn btn-primary" href="{{ '/nexus-arena-mecanica.html' | relative_url }}" target="_blank" rel="noopener">Jugar a pantalla completa</a>
+
+También puedes jugarlo aquí mismo:
 
 <iframe
   src="{{ '/nexus-arena-mecanica.html' | relative_url }}"
-  title="Videojuego NEXUS: Arena Mecánica"
+  title="NEXUS: Arena Mecánica"
   width="100%"
   height="650"
   style="border: 0; border-radius: 12px; background: #071014;"
@@ -24,24 +28,47 @@ También puedes jugarlo directamente aquí. Si no aparece el juego, usa el botó
   allowfullscreen>
 </iframe>
 
-## Cómo se juega
+## Controles
 
 - **Moverse:** A / D o flechas izquierda y derecha.
 - **Saltar:** W o flecha arriba.
 - **Disparar:** barra espaciadora.
-- **Impulso (dash):** Shift izquierdo.
+- **Impulso:** Shift izquierdo.
 - **Pausar o continuar:** Esc o P.
 - **Reiniciar el nivel:** R.
 
-El juego cuenta con tres sectores: laboratorio, fábrica y núcleo central. En los primeros dos hay que recolectar todos los núcleos para activar la salida; en el último, el objetivo es vencer al jefe Archon.
+## Los seis sectores
+
+1. **Laboratorio:** reúne los núcleos y activa la salida.
+2. **Fábrica de robots:** supera plataformas y unidades de seguridad.
+3. **Núcleo central:** derrota al primer guardián.
+4. **Jardín de silicio:** explora una zona de investigación invadida.
+5. **Forja de titanio:** enfrenta enemigos más resistentes y recoge cinco núcleos.
+6. **Última defensa:** combate final contra Archon, con dos fases de ataque.
+
+La campaña aumenta la dificultad por etapas. Los núcleos suman puntos y recuperan parte de la integridad y energía del robot. El juego también guarda el récord de puntuación en el navegador.
+
+## Proceso de ingeniería de prompting
+
+**Prompt inicial:** “Crea un videojuego en HTML, CSS y JavaScript que pueda publicar en GitHub Pages.”
+
+Después agregué rol, contexto y requisitos para que la instrucción fuera más precisa:
+
+> Actúa como diseñador y programador de videojuegos web. Crea un juego de plataformas 2D de ciencia ficción en un solo archivo HTML, con CSS y JavaScript integrados, que funcione sin bibliotecas externas en GitHub Pages. El personaje es N-07, un robot de mantenimiento. Incluye seis sectores con escenarios y dificultad progresiva, enemigos, núcleos coleccionables, dos enfrentamientos contra jefes, una interfaz clara, controles de teclado y controles táctiles para móvil. Explica los controles, conserva un menú para iniciar la partida y permite jugar dentro de la página.
+
+Luego refiné el resultado por iteraciones: pedí una presentación visual más cuidada, añadí sectores y progresión, y mejoré el combate final. La estructura del prompt incluye **rol, tarea clara, contexto, restricciones y ejemplos concretos de mecánicas**, siguiendo las recomendaciones de la clase.
 
 ## Tecnologías y funcionamiento
 
-- **HTML** organiza el menú, las instrucciones y las pantallas del juego.
-- **CSS** define la interfaz adaptable y su presentación visual.
-- **JavaScript y Canvas 2D** dibujan el escenario y actualizan al jugador, enemigos, proyectiles, colisiones, partículas y niveles.
-- **Web Audio API** genera efectos de sonido durante la partida.
+- **HTML** estructura el menú, las instrucciones y las pantallas.
+- **CSS** define la interfaz adaptable, los controles táctiles y el estilo visual.
+- **JavaScript y Canvas 2D** dibujan y actualizan el mundo, las colisiones, los enemigos, proyectiles, objetos y niveles.
+- **Web Audio API** crea efectos de sonido durante la partida.
 
-## Objetivo de aprendizaje
+El archivo del juego está publicado en este mismo repositorio: [ver el código fuente de NEXUS](https://github.com/FERNXNDXRO/portafolio-just-the-docs/blob/main/nexus-arena-mecanica.html).
 
-Practicar la integración de estructura, estilos y programación en una aplicación interactiva, además de organizar los elementos de un videojuego mediante estados, funciones y ciclos de actualización.
+## Uso de inteligencia artificial
+
+Utilicé ChatGPT como apoyo para proponer estructura, código, mecánicas y mejoras visuales. Fui dando instrucciones más específicas y pedí cambios por iteraciones; las decisiones sobre la temática, los controles y la progresión se definieron para este proyecto. El resultado debe revisarse y jugarse antes de presentarlo.
+
+**Referencia:** OpenAI. (2026). *ChatGPT* [asistente de inteligencia artificial]. https://chatgpt.com/
