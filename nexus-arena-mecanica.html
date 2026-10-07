@@ -25,10 +25,10 @@
     #touch-controls{position:absolute;bottom:16px;left:0;width:100%;display:none;justify-content:space-between;padding:0 18px;z-index:6;pointer-events:none}.touch-group{display:flex;gap:9px;pointer-events:auto}
     .t-btn{width:52px;height:52px;border:1px solid rgba(166,255,224,.55);border-radius:15px;color:#e9fff7;background:rgba(6,18,20,.74);backdrop-filter:blur(8px);box-shadow:0 8px 18px rgba(0,0,0,.35);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}.t-btn:active{transform:scale(.94);background:rgba(65,177,148,.6)}
     @media(max-width:720px){body{padding:0}#game-container{width:100vw;max-height:100svh;border-radius:0;border-left:0;border-right:0}#main-menu{width:72%;padding-left:5%}.screen{padding:18px}#touch-controls{display:flex;bottom:8px;padding:0 9px}.t-btn{width:45px;height:45px;border-radius:13px}.touch-group{gap:6px}.btn{min-width:110px;padding:11px 14px;font-size:.73rem}.controls-grid{gap:6px;padding:10px}}
-    @media(max-width:470px){#main-menu{width:90%;padding-left:4%}#main-menu .menu-kicker{font-size:.55rem;margin-bottom:8px;padding:5px 8px}#main-menu h1{font-size:2rem}#main-menu h2{margin:6px 0 8px}#main-menu p{max-width:275px;margin-bottom:10px;font-size:.72rem;line-height:1.4}#main-menu>div:last-child{display:flex;flex-wrap:wrap;gap:2px}#main-menu .btn{min-width:0;margin:2px;padding:8px 9px;font-size:.61rem;letter-spacing:.05em}.controls-grid div{padding:7px;font-size:.72rem}}
+    @media(max-width:470px){#main-menu{width:95%;padding-left:3%}#main-menu .menu-kicker{font-size:.55rem;margin-bottom:8px;padding:5px 8px}#main-menu h1{font-size:2rem}#main-menu h2{margin:6px 0 8px}#main-menu p{max-width:275px;margin-bottom:10px;font-size:.72rem;line-height:1.4}#main-menu>div:last-child{display:flex;flex-wrap:wrap;gap:2px}#main-menu .btn{min-width:0;margin:2px;padding:8px 9px;font-size:.61rem;letter-spacing:.05em}.controls-grid div{padding:7px;font-size:.72rem}}
     .toast{position:absolute;z-index:12;left:50%;top:72px;transform:translate(-50%,-10px);padding:12px 20px;border:1px solid rgba(115,248,209,.48);border-radius:999px;background:rgba(5,16,19,.92);color:#dffdf3;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 28px rgba(115,248,209,.12);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap}.toast.visible{opacity:1;transform:translate(-50%,0)}
     .menu-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:18px;border:1px solid rgba(115,248,209,.23);border-radius:999px;background:rgba(115,248,209,.07);color:#a9e8d4;font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.menu-kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:#78f6cc;box-shadow:0 0 12px #78f6cc}
-    .btn.secondary{background:rgba(9,23,27,.78);border-color:rgba(187,235,225,.2);color:#c5d7d1}.btn.secondary:first-child{color:#c5d7d1;background:rgba(9,23,27,.78);border-color:rgba(187,235,225,.2)}
+    .btn.secondary{background:#e9f6f0;border-color:#fff;color:#091413;font-weight:850}.btn.secondary:first-child{color:#091413;background:#e9f6f0;border-color:#fff}.btn.coop{background:linear-gradient(135deg,#ffe07a,#ff9d43);border-color:#fff0ae;color:#1b1004;font-weight:900}.coop-hint{font-size:.82rem;color:#f2f6f3}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
@@ -61,7 +61,7 @@
                 <button class="btn" onclick="startGame()">Iniciar misión</button>
                 <button class="btn secondary" onclick="showScreen('controls-screen')">Controles</button>
                 <button class="btn secondary" onclick="showScreen('story-screen')">Historia</button>
-                <button class="btn secondary" onclick="toggleFullscreen()">Pantalla completa</button>
+                <button class="btn coop" onclick="startGame(2)">Modo cooperativo · 2 jugadores</button>
             </div>
         </div>
 
@@ -77,6 +77,7 @@
                 <div><b>Pausa:</b> ESC / P</div>
                 <div><b>Reiniciar Nivel:</b> R</div>
             </div>
+            <p class="coop-hint"><b>Cooperativo local:</b> J1 usa A / D, W, Espacio y Shift izquierdo. J2 usa las flechas, Enter y Shift derecho. Trabajen juntos: comparten puntuación y ambos deben sobrevivir.</p>
             <button class="btn" onclick="showScreen('main-menu')">Volver</button>
         </div>
 
@@ -211,7 +212,7 @@
                 else if (gameState === 'PAUSED') resumeGame();
             }
             if (e.code === 'KeyR' && gameState === 'PLAYING') restartLevel();
-            if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
+            if (['Space', 'Enter', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
                 if (gameState === 'PLAYING') e.preventDefault();
             }
         });
@@ -233,6 +234,8 @@
 
         // --- ENTIDADES Y OBJETOS ---
         let player = {};
+        let player2 = null;
+        let playersMode = 1;
         let platforms = [];
         let enemies = [];
         let projectiles = [];
@@ -251,7 +254,11 @@
                 isDashing: false, dashTimer: 0, dashCooldown: 0,
                 shootCooldown: 0, hurtTimer: 0, animTimer: 0
             };
+            player2 = playersMode === 2 ? {...player,x:150,hp:100,energy:100,facing:'right'} : null;
         }
+        function activePlayers() { return [player, ...(playersMode===2 && player2 ? [player2] : [])].filter(p=>p && p.hp>0); }
+        function nearestPlayer(x,y) { const team=activePlayers(); return team.sort((a,b)=>Math.hypot(a.x-x,a.y-y)-Math.hypot(b.x-x,b.y-y))[0] || player; }
+        function checkTeamWipe() { if(activePlayers().length===0) triggerGameOver(); }
 
         // --- DISEÑADOR DE NIVELES ---
         function loadLevel(levelNum) {
@@ -369,7 +376,8 @@
             document.getElementById(screenId).classList.remove('hidden');
         }
 
-        function startGame() {
+        function startGame(mode=1) {
+            playersMode = mode;
             initAudio();
             score = 0;
             enemiesDefeated = 0;
@@ -400,7 +408,7 @@
         }
 
         function restartGame() {
-            startGame();
+            startGame(playersMode);
         }
 
         function returnToMenu() {
@@ -424,6 +432,25 @@
             showScreen('victory-screen');
         }
 
+        function updateSecondPlayer() {
+            const p=player2;
+            if(p.hp<=0)return;
+            if(p.energy<p.maxEnergy)p.energy=Math.min(p.maxEnergy,p.energy+.25);
+            if(p.dashCooldown>0)p.dashCooldown--;
+            if(p.shootCooldown>0)p.shootCooldown--;
+            if(p.hurtTimer>0)p.hurtTimer--;
+            const left=keys['ArrowLeft'],right=keys['ArrowRight'];
+            if(left!==right){p.facing=left?'left':'right';p.vx=(left?-1:1)*p.speed;}else p.vx=0;
+            if(keys['ShiftRight']&&p.dashCooldown===0&&p.energy>=25){p.isDashing=true;p.dashTimer=12;p.dashCooldown=40;p.energy-=25;playSound('dash');}
+            if(p.isDashing){p.vx=(p.facing==='right'?1:-1)*11;p.vy=0;if(--p.dashTimer<=0)p.isDashing=false;}
+            else {p.vy=Math.min(12,p.vy+.45);if(keys['ArrowUp']&&p.grounded){p.vy=p.jumpForce;p.grounded=false;playSound('jump');}}
+            if((keys['Enter']||keys['Numpad0'])&&p.shootCooldown===0&&p.energy>=8){p.shootCooldown=14;p.energy-=8;projectiles.push({x:p.facing==='right'?p.x+p.width:p.x-12,y:p.y+16,vx:p.facing==='right'?10:-10,vy:0,radius:4,fromPlayer:true,color:'#55a7ff'});playSound('shoot');}
+            p.x+=p.vx;resolveCollisionsX(p);p.grounded=false;p.y+=p.vy;resolveCollisionsY(p);
+            const mapWidth=[0,1400,1600,1000,1850,1900,1200][currentLevel]||1400;
+            p.x=Math.max(0,Math.min(mapWidth-p.width,p.x));
+            if(p.y>canvas.height+100){p.hp=0;checkTeamWipe();}
+        }
+
         // --- BUCLE PRINCIPAL DE ACTUALIZACIÓN ---
         function update() {
             if (gameState !== "PLAYING") return;
@@ -440,12 +467,13 @@
             if (player.hurtTimer > 0) player.hurtTimer--;
 
             // Movimiento lateral de N-07
+            if (player.hp > 0) {
             let moveDir = 0;
-            if (keys['ArrowLeft'] || keys['KeyA']) { moveDir = -1; player.facing = 'left'; }
-            if (keys['ArrowRight'] || keys['KeyD']) { moveDir = 1; player.facing = 'right'; }
+            if ((playersMode===1 && keys['ArrowLeft']) || keys['KeyA']) { moveDir = -1; player.facing = 'left'; }
+            if ((playersMode===1 && keys['ArrowRight']) || keys['KeyD']) { moveDir = 1; player.facing = 'right'; }
 
             // Mecánica de Dash (Impulso rápido)
-            if ((keys['ShiftLeft'] || keys['ShiftRight']) && player.dashCooldown === 0 && player.energy >= 25) {
+            if ((keys['ShiftLeft'] || (playersMode===1 && keys['ShiftRight'])) && player.dashCooldown === 0 && player.energy >= 25) {
                 player.isDashing = true;
                 player.dashTimer = 12;
                 player.dashCooldown = 40;
@@ -470,7 +498,7 @@
                 if (player.vy > 12) player.vy = 12;
 
                 // Salto
-                if ((keys['ArrowUp'] || keys['KeyW']) && player.grounded) {
+                if (((playersMode===1 && keys['ArrowUp']) || keys['KeyW']) && player.grounded) {
                     player.vy = player.jumpForce;
                     player.grounded = false;
                     playSound('jump');
@@ -508,11 +536,14 @@
             if (player.x + player.width > mapWidth) player.x = mapWidth - player.width;
             if (player.y > canvas.height + 100) {
                 player.hp = 0;
-                triggerGameOver();
+                checkTeamWipe();
             }
 
+            }
+            if(playersMode===2 && player2 && player2.hp>0) updateSecondPlayer();
             // Actualizar cámara suavemente
-            let targetCamX = player.x - camera.width / 2 + player.width / 2;
+            const focusX = playersMode===2 && player2 && player2.hp>0 && player.hp>0 ? (player.x+player2.x)/2 : (player.hp>0?player.x:player2.x);
+            let targetCamX = focusX - camera.width / 2 + player.width / 2;
             if (targetCamX < 0) targetCamX = 0;
             if (targetCamX > mapWidth - camera.width) targetCamX = mapWidth - camera.width;
             camera.x += (targetCamX - camera.x) * 0.1;
@@ -521,8 +552,10 @@
 
             // --- ACTUALIZAR COLECCIONABLES (NÚCLEOS) ---
             cores.forEach(c => {
-                if (!c.collected && Math.hypot((player.x + player.width/2) - (c.x + 12), (player.y + player.height/2) - (c.y + 12)) < 30) {
+                const collector=activePlayers().find(p=>Math.hypot((p.x+p.width/2)-(c.x+12),(p.y+p.height/2)-(c.y+12))<30);
+                if (!c.collected && collector) {
                     c.collected = true;
+                    activePlayers().forEach(p=>p.hp=Math.min(p.maxHp,p.hp+8));
                     coresCollected++;
                     levelCoresCollected++;
                     score += 250;
@@ -545,7 +578,7 @@
                     e.shootTimer++;
                     if (e.shootTimer > 90) {
                         e.shootTimer = 0;
-                        let pDir = player.x > e.x ? 1 : -1;
+                        let pDir = nearestPlayer(e.x,e.y).x > e.x ? 1 : -1;
                         projectiles.push({ x: e.x + 18, y: e.y + 20, vx: pDir * 5, vy: 0, radius: 5, fromPlayer: false, color: '#ff3366' });
                     }
                 } else if (e.type === 'jumper') {
@@ -556,7 +589,7 @@
                         if (e.x < plat.x + plat.width && e.x + e.width > plat.x && e.y + e.height >= plat.y && e.y + e.height <= plat.y + 15 && e.vy > 0) {
                             e.y = plat.y - e.height;
                             e.vy = -7;
-                            e.vx = (player.x > e.x ? 1 : -1) * 2;
+                            e.vx = (nearestPlayer(e.x,e.y).x > e.x ? 1 : -1) * 2;
                         }
                     });
                     e.x += (e.vx || 0);
@@ -564,7 +597,7 @@
                     e.shootTimer++;
                     if (e.shootTimer > 70) {
                         e.shootTimer = 0;
-                        projectiles.push({ x: e.x + 16, y: e.y + 15, vx: player.x > e.x ? 5 : -5, vy: 0, radius: 5, fromPlayer: false, color: '#ff3366' });
+                        projectiles.push({ x: e.x + 16, y: e.y + 15, vx: nearestPlayer(e.x,e.y).x > e.x ? 5 : -5, vy: 0, radius: 5, fromPlayer: false, color: '#ff3366' });
                     }
                 } else if (e.type === 'elite') {
                     e.moveTimer = (e.moveTimer || 0) + 1;
@@ -579,7 +612,7 @@
                     if (e.attackTimer > (e.phase === 2 ? 38 : 58)) {
                         e.attackTimer=0; playSound('shoot');
                         const cx=e.x+e.width/2, cy=e.y+e.height/2;
-                        const dx=(player.x+player.width/2)-cx, dy=(player.y+player.height/2)-cy;
+                        const target=nearestPlayer(cx,cy), dx=(target.x+target.width/2)-cx, dy=(target.y+target.height/2)-cy;
                         const base=Math.atan2(dy,dx), spread=e.phase===2?.34:.2, count=e.phase===2?5:3;
                         for(let n=0;n<count;n++){
                             const angle=base+(n-(count-1)/2)*spread, speed=e.phase===2?5.2:4.2;
@@ -588,17 +621,12 @@
                     }
                 }
 
-                // Colisión Jugador vs Enemigo
-                if (Math.abs((player.x + player.width/2) - (e.x + e.width/2)) < (player.width/2 + e.width/2) &&
-                    Math.abs((player.y + player.height/2) - (e.y + e.height/2)) < (player.height/2 + e.height/2)) {
-                    if (player.hurtTimer === 0 && !player.isDashing) {
-                        player.hp -= 20;
-                        player.hurtTimer = 45;
-                        screenShake = 8;
-                        playSound('hit');
-                        if (player.hp <= 0) triggerGameOver();
+                // Contacto enemigo con cada integrante que siga activo
+                activePlayers().forEach(p=>{
+                    if(Math.abs((p.x+p.width/2)-(e.x+e.width/2))<(p.width/2+e.width/2)&&Math.abs((p.y+p.height/2)-(e.y+e.height/2))<(p.height/2+e.height/2)&&p.hurtTimer===0&&!p.isDashing){
+                        p.hp-=20;p.hurtTimer=45;screenShake=8;playSound('hit');checkTeamWipe();
                     }
-                }
+                });
             });
 
             // --- ACTUALIZAR PROYECTILES ---
@@ -609,17 +637,8 @@
 
                 // Colisión Proyectil con jugador
                 if (!pr.fromPlayer) {
-                    if (Math.hypot((player.x + player.width/2) - pr.x, (player.y + player.height/2) - pr.y) < player.width/2) {
-                        if (player.hurtTimer === 0 && !player.isDashing) {
-                            player.hp -= 15;
-                            player.hurtTimer = 40;
-                            screenShake = 6;
-                            playSound('hit');
-                            projectiles.splice(i, 1);
-                            if (player.hp <= 0) triggerGameOver();
-                            continue;
-                        }
-                    }
+                    const target=activePlayers().find(p=>Math.hypot((p.x+p.width/2)-pr.x,(p.y+p.height/2)-pr.y)<p.width/2);
+                    if(target&&target.hurtTimer===0&&!target.isDashing){target.hp-=15;target.hurtTimer=40;screenShake=6;playSound('hit');projectiles.splice(i,1);checkTeamWipe();continue;}
                 } else {
                     // Colisión Proyectil de jugador con enemigos
                     let hitEnemy = false;
@@ -672,7 +691,7 @@
 
             // --- CHECAR PORTAL DE NIVEL ---
             if (portal && portal.active) {
-                if (Math.hypot((player.x + player.width/2) - (portal.x + portal.width/2), (player.y + player.height/2) - (portal.y + portal.height/2)) < 35) {
+                if (activePlayers().some(p=>Math.hypot((p.x+p.width/2)-(portal.x+portal.width/2),(p.y+p.height/2)-(portal.y+portal.height/2))<35)) {
                     if (currentLevel < 6) {
                         const next=currentLevel+1;loadLevel(next);showToast("SECTOR 0"+next+" · OBJETIVO ACTUALIZADO");
                     }
@@ -732,7 +751,7 @@
             platforms.forEach(p=>{const g=ctx.createLinearGradient(p.x,p.y,p.x,p.y+p.height);g.addColorStop(0,"#8b9b91");g.addColorStop(.08,"#405451");g.addColorStop(.24,"#263638");g.addColorStop(1,"#111a1d");ctx.fillStyle=g;ctx.fillRect(p.x,p.y,p.width,p.height);ctx.fillStyle=pal[2];ctx.globalAlpha=.78;ctx.fillRect(p.x,p.y,p.width,2);ctx.globalAlpha=1;ctx.fillStyle="rgba(0,0,0,.45)";ctx.fillRect(p.x,p.y+p.height-3,p.width,3);if(p.type==="platform"){ctx.save();ctx.beginPath();ctx.rect(p.x,p.y,p.width,p.height);ctx.clip();for(let q=p.x-10;q<p.x+p.width;q+=28){ctx.fillStyle="rgba(240,189,104,.6)";ctx.beginPath();ctx.moveTo(q,p.y+p.height);ctx.lineTo(q+10,p.y+p.height);ctx.lineTo(q+25,p.y);ctx.lineTo(q+15,p.y);ctx.fill();}ctx.restore();}for(let bx=p.x+12;bx<p.x+p.width-6;bx+=48){ctx.fillStyle="#a5b6aa";ctx.beginPath();ctx.arc(bx,p.y+p.height/2,2,0,Math.PI*2);ctx.fill();}ctx.strokeStyle="rgba(218,238,225,.18)";ctx.strokeRect(p.x+.5,p.y+.5,p.width-1,p.height-1);});
             if(portal){ctx.save();ctx.shadowBlur=portal.active?26:5;ctx.shadowColor=portal.active?pal[2]:"#b74b5c";ctx.fillStyle=portal.active?"rgba(79,231,187,.1)":"rgba(210,68,86,.05)";ctx.fillRect(portal.x,portal.y,portal.width,portal.height);ctx.lineWidth=4;ctx.strokeStyle=portal.active?pal[2]:"#b74b5c";ctx.strokeRect(portal.x,portal.y,portal.width,portal.height);ctx.globalAlpha=.65;ctx.fillStyle=portal.active?pal[2]:"#b74b5c";for(let py=portal.y+9;py<portal.y+portal.height-5;py+=14)ctx.fillRect(portal.x+7,py,portal.width-14,2);ctx.restore();}
             cores.forEach(c=>{if(c.collected)return;ctx.save();ctx.translate(c.x+12,c.y+12+Math.sin(Date.now()/190+c.x)*5);ctx.rotate(Date.now()/900);ctx.shadowColor=pal[2];ctx.shadowBlur=20;ctx.fillStyle="rgba(115,248,209,.25)";ctx.beginPath();ctx.arc(0,0,15,0,Math.PI*2);ctx.fill();ctx.rotate(Math.PI/4);ctx.fillStyle=pal[2];ctx.fillRect(-7,-7,14,14);ctx.fillStyle="#fff";ctx.fillRect(-2,-2,4,4);ctx.restore();});
-            enemies.forEach(e=>drawEnemy(e));if(player&&player.width)drawPlayer();
+            enemies.forEach(e=>drawEnemy(e));if(player&&player.width&&player.hp>0)drawPlayer(player,'#ff6b7a','J1');if(player2&&player2.hp>0)drawPlayer(player2,'#55a7ff','J2');
             projectiles.forEach(p=>{ctx.save();ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=14;ctx.beginPath();ctx.ellipse(p.x,p.y,p.fromPlayer?9:7,p.fromPlayer?3:5,0,0,Math.PI*2);ctx.fill();ctx.restore();});
             particles.forEach(p=>{ctx.globalAlpha=Math.max(.08,Math.min(1,p.life/25));ctx.fillStyle=p.color;ctx.shadowColor=p.color;ctx.shadowBlur=9;ctx.fillRect(p.x,p.y,p.size,p.size);ctx.globalAlpha=1;ctx.shadowBlur=0;});
             ctx.restore();drawHUD();
@@ -746,22 +765,24 @@
             else{ctx.fillStyle=g;ctx.beginPath();ctx.roundRect(x+2,y+3,w-4,h-3,6);ctx.fill();ctx.strokeStyle="rgba(228,238,225,.48)";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#0d1518";ctx.fillRect(x+6,y+10,w-12,10);ctx.fillStyle=e.type==="elite"?"#ffd36e":"#ff7583";ctx.shadowBlur=9;ctx.fillRect(x+10,y+13,w-20,3);ctx.fillStyle="#81918b";ctx.fillRect(x+6,y+h-7,8,8);ctx.fillRect(x+w-14,y+h-7,8,8);}
             if(e.type!=="boss"&&e.hp<e.maxHp){ctx.shadowBlur=0;ctx.fillStyle="rgba(0,0,0,.65)";ctx.fillRect(x,y-7,w,3);ctx.fillStyle="#ff7180";ctx.fillRect(x,y-7,w*Math.max(0,e.hp/e.maxHp),3);}ctx.restore();
         }
-        function drawPlayer() {
-            const x=player.x,y=player.y,w=player.width,h=player.height;if(player.hurtTimer>0&&player.hurtTimer%4>=2)return;ctx.save();if(player.isDashing){ctx.globalAlpha=.78;ctx.shadowColor="#8effdf";ctx.shadowBlur=22;}
+        function drawPlayer(player,tint,label) {
+            if(!player||player.hp<=0)return;
+            const x=player.x,y=player.y,w=player.width,h=player.height;if(player.hurtTimer>0&&player.hurtTimer%4>=2)return;ctx.save();if(player.isDashing){ctx.globalAlpha=.78;ctx.shadowColor=tint;ctx.shadowBlur=22;}
             const a=ctx.createLinearGradient(x,y,x+w,y+h);a.addColorStop(0,player.isDashing?"#d0fff2":"#a4b5aa");a.addColorStop(.4,player.isDashing?"#48d9bb":"#556a65");a.addColorStop(1,"#17272a");
             ctx.fillStyle="#1a292d";ctx.fillRect(x+2,y+15,7,19);ctx.fillStyle="#50615c";ctx.fillRect(x+3,y+17,5,12);ctx.fillStyle="#283a3c";ctx.fillRect(x+7,y+37,8,8);ctx.fillRect(x+21,y+37,8,8);ctx.fillStyle="#111b1e";ctx.fillRect(x+4,y+43,12,3);ctx.fillRect(x+19,y+43,12,3);
             ctx.fillStyle=a;ctx.beginPath();ctx.moveTo(x+8,y+14);ctx.lineTo(x+26,y+14);ctx.lineTo(x+30,y+34);ctx.lineTo(x+25,y+39);ctx.lineTo(x+8,y+38);ctx.lineTo(x+4,y+33);ctx.closePath();ctx.fill();ctx.strokeStyle="rgba(224,245,232,.65)";ctx.stroke();
-            ctx.fillStyle="#273a3c";ctx.beginPath();ctx.arc(x+6,y+17,4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+28,y+17,4,0,Math.PI*2);ctx.fill();ctx.shadowColor="#ff6b7a";ctx.shadowBlur=14;ctx.fillStyle="#ff6b7a";ctx.beginPath();ctx.arc(x+17,y+25,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-            ctx.fillStyle="#778980";ctx.beginPath();ctx.roundRect(x+7,y,20,16,4);ctx.fill();ctx.strokeStyle="rgba(233,248,238,.72)";ctx.stroke();ctx.fillStyle="#0b1719";ctx.beginPath();ctx.roundRect(x+9,y+4,16,7,2);ctx.fill();ctx.shadowColor="#8effdf";ctx.shadowBlur=10;ctx.fillStyle="#a5ffe4";ctx.fillRect(player.facing==="right"?x+16:x+9,y+6,9,2);ctx.shadowBlur=0;ctx.restore();
+            ctx.fillStyle="#273a3c";ctx.beginPath();ctx.arc(x+6,y+17,4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+28,y+17,4,0,Math.PI*2);ctx.fill();ctx.shadowColor=tint;ctx.shadowBlur=14;ctx.fillStyle=tint;ctx.beginPath();ctx.arc(x+17,y+25,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+            ctx.fillStyle="#778980";ctx.beginPath();ctx.roundRect(x+7,y,20,16,4);ctx.fill();ctx.strokeStyle="rgba(233,248,238,.72)";ctx.stroke();ctx.fillStyle="#0b1719";ctx.beginPath();ctx.roundRect(x+9,y+4,16,7,2);ctx.fill();ctx.shadowColor="#8effdf";ctx.shadowBlur=10;ctx.fillStyle=tint;ctx.fillRect(player.facing==="right"?x+16:x+9,y+6,9,2);ctx.shadowBlur=0;if(label){ctx.fillStyle="#fff";ctx.font="900 9px system-ui";ctx.textAlign="center";ctx.fillText(label,x+w/2,y-5);ctx.textAlign="left";}ctx.restore();
         }
         function drawHUD() {
             ctx.save();ctx.fillStyle="rgba(5,12,15,.91)";ctx.fillRect(0,0,900,54);ctx.fillStyle="rgba(115,248,209,.12)";ctx.fillRect(0,52,900,2);
             ctx.fillStyle="#d7e7df";ctx.font="800 10px system-ui";ctx.fillText("N-07",20,18);ctx.fillStyle="#7c9990";ctx.font="700 8px system-ui";ctx.fillText("UNIDAD DE MANTENIMIENTO",20,31);
             ctx.fillStyle="#ff7b88";ctx.font="700 9px system-ui";ctx.fillText("INTEGRIDAD",190,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(190,24,128,9);ctx.fillStyle="#ff6879";ctx.fillRect(190,24,128*Math.max(0,player.hp/player.maxHp),9);
             ctx.fillStyle="#75f3cd";ctx.fillText("ENERGÍA",338,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(338,24,105,9);ctx.fillStyle="#54dcb8";ctx.fillRect(338,24,105*Math.max(0,player.energy/player.maxEnergy),9);
+            if(playersMode===2&&player2){ctx.fillStyle="#76b8ff";ctx.fillText("J2 · VIDA",190,43);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(248,37,90,7);ctx.fillStyle="#55a7ff";ctx.fillRect(248,37,90*Math.max(0,player2.hp/player2.maxHp),7);}
             const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL","JARDÍN DE SILICIO","FORJA DE TITANIO","ÚLTIMA DEFENSA"];ctx.fillStyle="#eaf5ef";ctx.font="800 10px system-ui";ctx.fillText(names[currentLevel-1]||"SECTOR",486,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("SECTOR 0"+currentLevel+" / 06",486,34);
             ctx.fillStyle="#f0bd68";ctx.font="700 9px system-ui";ctx.fillText("NÚCLEOS "+levelCoresCollected+" / "+totalCoresInLevel,626,20);ctx.fillStyle="#d3e2db";ctx.font="800 10px system-ui";ctx.fillText(String(score).padStart(6,"0"),786,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("PUNTUACIÓN",786,34);
-            ctx.fillStyle="rgba(5,12,15,.82)";ctx.fillRect(0,516,900,34);ctx.fillStyle="rgba(115,248,209,.16)";ctx.fillRect(0,516,900,1);ctx.fillStyle="#829790";ctx.font="700 8px system-ui";ctx.fillText("A / D MOVER",20,537);ctx.fillText("W SALTAR",143,537);ctx.fillText("ESPACIO DISPARAR",253,537);ctx.fillText("SHIFT IMPULSO",408,537);ctx.fillStyle=portal&&portal.active?"#87f5cf":"#e5ba75";ctx.fillText(portal?(portal.active?"OBJETIVO · VE A LA SALIDA":"OBJETIVO · BUSCA LOS NÚCLEOS"):"OBJETIVO · DESTRUYE ARCHON",622,537);ctx.restore();
+            ctx.fillStyle="rgba(5,12,15,.82)";ctx.fillRect(0,516,900,34);ctx.fillStyle="rgba(115,248,209,.16)";ctx.fillRect(0,516,900,1);ctx.fillStyle="#829790";ctx.font="700 8px system-ui";if(playersMode===2){ctx.fillStyle="#ff8994";ctx.fillText("J1 A/D · W · ESPACIO · SHIFT IZQ",20,537);ctx.fillStyle="#76b8ff";ctx.fillText("J2 FLECHAS · ENTER · SHIFT DER",305,537);}else{ctx.fillText("A / D MOVER",20,537);ctx.fillText("W SALTAR",143,537);ctx.fillText("ESPACIO DISPARAR",253,537);ctx.fillText("SHIFT IMPULSO",408,537);}ctx.fillStyle=portal&&portal.active?"#87f5cf":"#e5ba75";ctx.fillText(portal?(portal.active?"OBJETIVO · VE A LA SALIDA":"OBJETIVO · BUSCA LOS NÚCLEOS"):"OBJETIVO · DESTRUYE ARCHON",622,537);ctx.restore();
         }
 
         // --- BUCLE DE JUEGO PRINCIPAL ---
