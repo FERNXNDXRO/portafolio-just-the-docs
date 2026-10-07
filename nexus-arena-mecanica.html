@@ -24,8 +24,8 @@
     #story-screen p{max-width:620px}#gameover-screen h1{color:#ffc4c9;font-size:clamp(2rem,5vw,4.5rem)}#gameover-screen h2{color:var(--coral)}#victory-screen h1{font-size:clamp(2rem,5vw,4.5rem)}
     #touch-controls{position:absolute;bottom:16px;left:0;width:100%;display:none;justify-content:space-between;padding:0 18px;z-index:6;pointer-events:none}.touch-group{display:flex;gap:9px;pointer-events:auto}
     .t-btn{width:52px;height:52px;border:1px solid rgba(166,255,224,.55);border-radius:15px;color:#e9fff7;background:rgba(6,18,20,.74);backdrop-filter:blur(8px);box-shadow:0 8px 18px rgba(0,0,0,.35);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}.t-btn:active{transform:scale(.94);background:rgba(65,177,148,.6)}
-    @media(max-width:720px){body{padding:0}#game-container{width:100vw;max-height:100svh;border-radius:0;border-left:0;border-right:0}#main-menu{width:72%;padding-left:5%}.screen{padding:18px}#touch-controls{display:flex;bottom:8px;padding:0 9px}.t-btn{width:45px;height:45px;border-radius:13px}.touch-group{gap:6px}.btn{min-width:110px;padding:11px 14px;font-size:.73rem}.controls-grid{gap:6px;padding:10px}}
-    @media(max-width:470px){#main-menu{width:95%;padding-left:3%}#main-menu .menu-kicker{font-size:.55rem;margin-bottom:8px;padding:5px 8px}#main-menu h1{font-size:2rem}#main-menu h2{margin:6px 0 8px}#main-menu p{max-width:275px;margin-bottom:10px;font-size:.72rem;line-height:1.4}#main-menu>div:last-child{display:flex;flex-wrap:wrap;gap:2px}#main-menu .btn{min-width:0;margin:2px;padding:8px 9px;font-size:.61rem;letter-spacing:.05em}.controls-grid div{padding:7px;font-size:.72rem}}
+    @media(max-width:720px){body{padding:0}#game-container{width:100vw;max-height:100svh;border-radius:0;border-left:0;border-right:0}#main-menu{width:100%;padding:12px 5%;justify-content:flex-start;overflow-y:auto}.screen{padding:12px;overflow-y:auto}#touch-controls{display:flex;bottom:8px;padding:0 9px}.t-btn{width:45px;height:45px;border-radius:13px}.touch-group{gap:6px}.btn{min-width:110px;padding:11px 14px;font-size:.73rem}.controls-grid{gap:6px;padding:10px}}
+    @media(max-width:470px){#main-menu{width:95%;padding-left:3%}#main-menu .menu-kicker{font-size:.55rem;margin-bottom:8px;padding:5px 8px}#main-menu h1{font-size:2rem}#main-menu h2{margin:6px 0 8px}#main-menu p{max-width:275px;margin-bottom:10px;font-size:.72rem;line-height:1.4}#main-menu>div:last-child{display:block;width:100%}#main-menu .btn{display:block;width:100%;min-width:0;margin:4px 0;padding:8px 9px;font-size:.61rem;letter-spacing:.05em}#main-menu .btn.coop{font-size:.72rem;padding:11px 9px}.controls-grid div{padding:7px;font-size:.72rem}}
     .toast{position:absolute;z-index:12;left:50%;top:72px;transform:translate(-50%,-10px);padding:12px 20px;border:1px solid rgba(115,248,209,.48);border-radius:999px;background:rgba(5,16,19,.92);color:#dffdf3;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 28px rgba(115,248,209,.12);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap}.toast.visible{opacity:1;transform:translate(-50%,0)}
     .menu-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:18px;border:1px solid rgba(115,248,209,.23);border-radius:999px;background:rgba(115,248,209,.07);color:#a9e8d4;font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.menu-kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:#78f6cc;box-shadow:0 0 12px #78f6cc}
     .btn.secondary{background:#e9f6f0;border-color:#fff;color:#091413;font-weight:850}.btn.secondary:first-child{color:#091413;background:#e9f6f0;border-color:#fff}.btn.coop{background:linear-gradient(135deg,#ffe07a,#ff9d43);border-color:#fff0ae;color:#1b1004;font-weight:900}.coop-hint{font-size:.82rem;color:#f2f6f3}
@@ -59,9 +59,9 @@
             <p>La red de seguridad perdió el control. Pilotea a <b>N-07</b> por seis sectores, reúne energía, sobrevive a las máquinas y recupera el núcleo central.</p>
             <div>
                 <button class="btn" onclick="startGame()">Iniciar misión</button>
+                <button class="btn coop" type="button" onclick="startGame(2)">Jugar en cooperativo · 2 jugadores</button>
                 <button class="btn secondary" onclick="showScreen('controls-screen')">Controles</button>
                 <button class="btn secondary" onclick="showScreen('story-screen')">Historia</button>
-                <button class="btn coop" onclick="startGame(2)">Modo cooperativo · 2 jugadores</button>
             </div>
         </div>
 
@@ -384,7 +384,7 @@
             coresCollected = 0;
             loadLevel(1);
             gameState = "PLAYING";
-            showToast("MISIÓN INICIADA · SECTOR 01");
+            showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 01");
             document.getElementById('main-menu').classList.add('hidden');
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('gameover-screen').classList.add('hidden');
