@@ -17,6 +17,7 @@ Desarrollé un videojuego de plataformas 2D de ciencia ficción. El jugador cont
 También puedes jugarlo aquí mismo:
 
 <iframe
+  id="nexus-game"
   src="{{ '/nexus-arena-mecanica.html' | relative_url }}"
   title="NEXUS: Arena Mecánica"
   width="100%"
@@ -26,7 +27,7 @@ También puedes jugarlo aquí mismo:
   allowfullscreen>
 </iframe>
 
-<a href="{{ '/nexus-arena-mecanica.html' | relative_url }}" target="_blank" rel="noopener" style="display:block; width:fit-content; margin:22px auto 30px; padding:16px 26px; border:3px solid #101820; border-radius:12px; background:#ffd43b; color:#111; box-shadow:0 5px 0 #b78300,0 10px 24px rgba(0,0,0,.22); font-size:1.15rem; font-weight:900; letter-spacing:.04em; text-align:center; text-decoration:none;">🎮 ABRIR EL JUEGO EN PANTALLA COMPLETA</a>
+<button type="button" onclick="document.getElementById('nexus-game').requestFullscreen?.()" style="display:block; width:fit-content; margin:22px auto 30px; padding:16px 26px; border:3px solid #101820; border-radius:12px; background:#ffd43b; color:#111; box-shadow:0 5px 0 #b78300,0 10px 24px rgba(0,0,0,.22); font-size:1.15rem; font-weight:900; letter-spacing:.04em; text-align:center; cursor:pointer;">🎮 JUGAR EN PANTALLA COMPLETA</button>
 
 ## Cómo jugar
 
