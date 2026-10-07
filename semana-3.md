@@ -40,6 +40,8 @@ Después del corte láser, quedaron seis piezas de MDF: cuatro lados y dos tapas
 
 ## Resultado final
 
+![Cubo terminado, vista 1](https://raw.githubusercontent.com/FERNXNDXRO/portafolio-just-the-docs/6832f719362285aac5a6bf3e55b241872ed3222b/assets/img/semana-3/cubo-terminado-1.jpeg)
+
 ![Cubo terminado, vista 2](assets/img/semana-3/cubo-terminado-2.jpeg)
 
 ## Material de referencia
