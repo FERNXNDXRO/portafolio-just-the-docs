@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Semana 2: Arduinos y circuitos
+title: "Semana 2: Arduinos y circuitos"
 nav_order: 4
 ---
 
