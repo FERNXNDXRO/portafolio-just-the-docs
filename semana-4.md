@@ -21,6 +21,14 @@ En este proyecto de medio semestre, realizado en pareja, diseñamos un brazo rob
 
 Modelamos las piezas del brazo y las acomodamos en el programa de diseño para prepararlas para el corte. El diseño muestra la base, los eslabones, los soportes de los servos y las piezas de la pinza.
 
+## Vistas del diseño
+
+![Modelo CAD del brazo robot, vista P](assets/videos/P.jpeg)
+
+![Modelo CAD del brazo robot, vista D](assets/videos/D.jpeg)
+
+![Modelo CAD del brazo robot, vista S](assets/videos/S.jpeg)
+
 ## Fabricación
 
 1. Dibujamos las piezas con sus orificios y uniones.
