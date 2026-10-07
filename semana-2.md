@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Semana 2
+title: Semana 2: Arduinos y circuitos
 nav_order: 4
 ---
 
-# Semana 2 — Arduino y circuitos
+# Semana 2: Arduinos y circuitos
 
 Durante esta semana trabajé con **Arduino UNO y circuitos electrónicos**, realizando diferentes prácticas para conocer las funciones básicas del microcontrolador, las conexiones de los componentes y la programación mediante Arduino IDE.
 
