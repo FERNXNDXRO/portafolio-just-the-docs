@@ -20,19 +20,13 @@ La guía de la actividad describe el uso de MDF de 3 mm y señala que las medida
 
 ### Lados (4 piezas)
 
-![Diseño de los lados, vista 1](assets/img/semana-3/diseno-lados-x4-1.jpeg)
-
 ![Diseño de los lados, vista 2](assets/img/semana-3/diseno-lados-x4-2.jpeg)
-
-![Ajuste de tolerancia en las pestañas](assets/img/semana-3/tolerancia-de-pestanas.jpeg)
 
 ## Diseño y preparación del corte
 
 El diseño de las piezas se trabajó en un programa de dibujo y se cargó en la interfaz de la cortadora láser para preparar su posición de corte sobre el material.
 
 ![Trabajo del diseño en el programa de dibujo](assets/img/semana-3/diseno-en-software.jpeg)
-
-![Explicación del diseño en pantalla](assets/img/semana-3/explicacion-del-diseno.jpeg)
 
 ![Acomodo de las piezas para el corte láser](assets/img/semana-3/acomodo-para-corte-laser.jpeg)
 
@@ -45,8 +39,6 @@ Después del corte láser, quedaron seis piezas de MDF: cuatro lados y dos tapas
 ![Piezas cortadas en MDF](assets/img/semana-3/piezas-cortadas.jpeg)
 
 ## Resultado final
-
-![Cubo terminado, vista 1](assets/img/semana-3/cubo-terminado-1.jpeg)
 
 ![Cubo terminado, vista 2](assets/img/semana-3/cubo-terminado-2.jpeg)
 
