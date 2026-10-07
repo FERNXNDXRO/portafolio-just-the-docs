@@ -454,6 +454,7 @@
         // --- BUCLE PRINCIPAL DE ACTUALIZACIÓN ---
         function update() {
             if (gameState !== "PLAYING") return;
+            const mapWidth = [0,1400,1600,1000,1850,1900,1200][currentLevel] || 1400;
 
             // Recuperación gradual de energía
             if (player.energy < player.maxEnergy) {
@@ -531,7 +532,6 @@
             resolveCollisionsY(player);
 
             // Límites del mapa por nivel
-            let mapWidth = [0,1400,1600,1000,1850,1900,1200][currentLevel] || 1400;
             if (player.x < 0) player.x = 0;
             if (player.x + player.width > mapWidth) player.x = mapWidth - player.width;
             if (player.y > canvas.height + 100) {
