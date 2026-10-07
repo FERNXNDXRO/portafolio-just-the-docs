@@ -75,6 +75,20 @@ void loop() {
 7. Si un servo zumba, se calienta o intenta forzar una articulación, apaga la fuente y corrige el sentido, el montaje o el rango de movimiento.
 8. Prueba la pinza con una pelota de 6 cm. Registra si logra sujetarla durante 5 segundos y agrega aquí el video de evidencia.
 
+## Videos de movimiento
+
+Los siguientes videos se pueden reproducir directamente desde esta página con el control de reproducción.
+
+<video controls playsinline preload="metadata" width="100%">
+  <source src="{{ '/assets/videos/VIDEO.mp4' | relative_url }}" type="video/mp4">
+  Tu navegador no puede reproducir este video.
+</video>
+
+<video controls playsinline preload="metadata" width="100%">
+  <source src="{{ '/assets/videos/VIDEO2.mp4' | relative_url }}" type="video/mp4">
+  Tu navegador no puede reproducir este video.
+</video>
+
 ## Resultado y evidencia
 
 El brazo ensamblado integra la base, las articulaciones, la pinza, cuatro servos y el Arduino. En esta sección se documentan las pruebas de movimiento y su resultado.
