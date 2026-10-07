@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Semana 3
+title: "Semana 3: Diseño de un cubo de PPF"
 nav_order: 5
 ---
 
-# Semana 3
+# Semana 3: Diseño de un cubo de PPF
 
-Esta sección está preparada para documentar la actividad correspondiente a la Semana 3.
+Durante la Semana 3 diseñamos un cubo de PPF.
 
 ## Actividad
 
-**Pendiente de agregar.**
+**Actividad:** diseño de un cubo de PPF.
 
 Aquí se incorporará la descripción, el procedimiento, las evidencias y los aprendizajes.
