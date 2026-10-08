@@ -71,6 +71,10 @@
     @media(max-width:820px){.workshop-layout{grid-template-columns:1fr;gap:6px}.avatar-stage{height:240px}.robot-figure{transform:scale(.84);animation:robot-turn 14s linear infinite}.avatar-platform{bottom:22px}.avatar-glow{bottom:34px}.avatar-orbit{width:190px;height:190px}.customize-column .customize-section{padding:11px}.outfit-panel{width:min(620px,100%)}.avatar-tip{font-size:.58rem}}
     @media(max-width:520px){.avatar-stage{height:200px}.robot-figure{transform:scale(.72)}.avatar-platform{bottom:15px}.avatar-glow{bottom:28px}.armor-grid{gap:4px}.armor-choice{font-size:.56rem;padding:7px 2px}.accessory-grid{gap:6px}.accessory-choice{min-height:42px;font-size:.66rem;padding:8px 5px}.customize-heading{font-size:.7rem}}
 
+
+    #campaign-map-screen{justify-content:flex-start;overflow-y:auto;background:radial-gradient(ellipse at 50% 0%,rgba(34,99,87,.25),transparent 57%),linear-gradient(180deg,#071216,#091115)}.map-header{width:min(1050px,100%);text-align:left}.map-header .menu-kicker{margin-bottom:8px}.map-title{font-size:clamp(1.8rem,4vw,3.4rem);letter-spacing:.1em}.map-header p{margin:8px 0 14px;max-width:700px}.campaign-map-board{position:relative;width:min(1050px,100%);height:clamp(330px,42vh,430px);flex:0 0 auto;overflow:hidden;border:1px solid rgba(147,235,205,.24);border-radius:20px;background:radial-gradient(ellipse at 15% 80%,rgba(44,103,69,.47),transparent 40%),radial-gradient(ellipse at 83% 20%,rgba(39,87,110,.45),transparent 42%),linear-gradient(155deg,#152b2c,#142721 50%,#202c32);box-shadow:inset 0 0 80px rgba(0,0,0,.38),0 18px 60px rgba(0,0,0,.35)}.map-skyline{position:absolute;inset:0;opacity:.45;background:radial-gradient(circle at 10% 22%,#f2d583 0 2px,transparent 3px),radial-gradient(circle at 32% 17%,#ccefe1 0 1px,transparent 2px),radial-gradient(circle at 66% 29%,#f2d583 0 2px,transparent 3px),radial-gradient(circle at 91% 54%,#ccefe1 0 1px,transparent 2px),linear-gradient(168deg,transparent 56%,rgba(84,143,94,.22) 56.5% 66%,transparent 66.5%),linear-gradient(15deg,transparent 61%,rgba(102,149,97,.17) 61.5% 76%,transparent 76.5%)}.campaign-route{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.route-shadow,.route-line{fill:none;stroke-linecap:round;stroke-linejoin:round}.route-shadow{stroke:rgba(0,0,0,.48);stroke-width:19}.route-line{stroke:#d6bc79;stroke-width:8;stroke-dasharray:2 15;filter:drop-shadow(0 0 4px rgba(255,226,151,.55))}.map-node{position:absolute;z-index:2;width:130px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 7px;border:1px solid rgba(217,231,218,.25);border-radius:14px;background:linear-gradient(145deg,rgba(25,43,43,.96),rgba(9,20,24,.96));color:#dcebe1;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.32);opacity:.48;cursor:not-allowed;transition:transform .2s,border-color .2s,box-shadow .2s,opacity .2s}.map-node b{display:grid;place-items:center;width:39px;height:39px;margin-top:-23px;border:3px solid #4c6258;border-radius:50%;background:radial-gradient(circle at 35% 25%,#53645a,#172623 70%);color:#c1d0c6;font-size:.83rem;box-shadow:0 5px 10px #09100e}.map-node span{font-size:.68rem;font-weight:900}.map-node small{color:#a8b9ac;font-size:.51rem;font-weight:950;letter-spacing:.13em}.map-node em{color:#ffd45e;font-size:.74rem;font-style:normal;letter-spacing:.12em}.map-node.unlocked{opacity:1;cursor:pointer;border-color:rgba(127,232,193,.42)}.map-node.unlocked b{border-color:#93e2bd;color:#fff;background:radial-gradient(circle at 35% 25%,#82d6a8,#20533d 72%);box-shadow:0 0 19px rgba(111,240,184,.36)}.map-node.unlocked:hover{transform:translate(-50%,-56%);border-color:#ffe18b;box-shadow:0 13px 30px rgba(0,0,0,.42),0 0 23px rgba(255,218,112,.23)}.map-node.current{border-color:#ffd45e;box-shadow:0 0 0 2px rgba(255,212,94,.18),0 0 28px rgba(255,212,94,.22)}.map-node.completed b{background:radial-gradient(circle at 35% 25%,#ffe18b,#946322 72%);border-color:#ffe09a}.map-robot-token{position:absolute;z-index:4;left:8%;top:70%;width:33px;height:45px;transform:translate(-50%,-120%);transition:left .7s cubic-bezier(.2,.8,.2,1),top .7s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 5px 6px rgba(0,0,0,.65));animation:map-hop 1.5s ease-in-out infinite;pointer-events:none}.token-head{position:absolute;top:3px;left:7px;width:20px;height:16px;border:2px solid #e8f8ef;border-radius:6px;background:linear-gradient(135deg,#9bb3a8,#314847)}.token-head i{position:absolute;left:3px;right:3px;top:5px;height:4px;border-radius:3px;background:#8effdf;box-shadow:0 0 7px #8effdf}.token-body{position:absolute;top:20px;left:5px;width:24px;height:18px;border:1px solid #e8fff5;border-radius:6px 6px 4px 4px;background:linear-gradient(135deg,#b5ffe8,#4bb79a 52%,#183b3a)}.token-body:after{content:"";position:absolute;left:9px;top:5px;width:5px;height:5px;border-radius:50%;background:#ff7582;box-shadow:0 0 6px #ff7582}.token-antenna{position:absolute;top:-2px;left:16px;width:2px;height:7px;background:#f0bd68}.token-antenna:after{content:"";position:absolute;top:-3px;left:-2px;width:6px;height:6px;border-radius:50%;background:#ffe18b;box-shadow:0 0 5px #ffe18b}.token-leg{position:absolute;top:37px;width:7px;height:8px;border-radius:2px;background:#81978b}.token-leg.left{left:8px}.token-leg.right{right:7px}@keyframes map-hop{50%{margin-top:-8px}}.map-footer{width:min(1050px,100%);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0 0}.map-progress-copy{color:#d6e7dd;font-size:.7rem;font-weight:900;letter-spacing:.1em}.map-start-btn{min-width:230px;background:linear-gradient(135deg,#ffe08a,#f0af45);border-color:#fff0ba;color:#1e1708;font-weight:950}.map-start-btn:disabled{opacity:.45;cursor:not-allowed}
+    @media(max-width:720px){.campaign-map-board{height:360px}.map-node{width:95px;padding:6px 4px}.map-node b{width:33px;height:33px;margin-top:-19px}.map-node span{font-size:.58rem}.map-node small{font-size:.43rem}.map-node em{font-size:.65rem}.map-footer{flex-wrap:wrap;justify-content:center}.map-progress-copy{width:100%;text-align:center}.map-start-btn{flex:1;min-width:170px}.map-header{padding:0 4px}.map-header p{font-size:.75rem}}
+    @media(max-width:470px){.campaign-map-board{height:320px}.map-node{width:82px}.map-node span{font-size:.53rem}.map-node small{letter-spacing:.07em}.map-node em{letter-spacing:.05em}.map-robot-token{transform:translate(-50%,-120%) scale(.88)}}
     #level-review-screen{background:radial-gradient(ellipse at 50% 42%,rgba(118,84,25,.32),rgba(4,12,16,.97) 68%)}.review-kicker{color:#b7d8ca;font-size:.68rem;font-weight:950;letter-spacing:.24em}.review-title{font-size:clamp(2rem,5vw,4.4rem);letter-spacing:.1em}.review-sector{margin:10px 0 2px;color:#f0bd68}.review-stars{display:flex;gap:13px;justify-content:center;margin:12px 0 4px;color:#37413f;font-size:clamp(3.5rem,9vw,6rem);line-height:1;text-shadow:0 7px 22px rgba(0,0,0,.35)}.review-stars span{transform:scale(.7);opacity:.3}.review-stars span.earned{color:#ffd45e;opacity:1;transform:scale(1);text-shadow:0 0 12px rgba(255,211,94,.65),0 0 35px rgba(255,184,54,.28);animation:star-pop .45s cubic-bezier(.2,1.7,.4,1) both}.review-stars span:nth-child(2).earned{animation-delay:.16s}.review-stars span:nth-child(3).earned{animation-delay:.32s}.review-rating{margin:5px 0 12px;color:#f2f8f3;font-size:1.05rem;font-weight:850}.review-stats{padding:10px 18px;border:1px solid rgba(240,189,104,.35);border-radius:999px;background:rgba(30,28,19,.62);color:#fff0c7;font-weight:800}.review-hint{margin:14px auto;max-width:480px}.review-next{margin-top:8px;min-width:min(360px,90%)}@keyframes star-pop{from{transform:scale(.15) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
     @media(prefers-reduced-motion:reduce){.review-stars span.earned{animation:none}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
@@ -103,12 +107,30 @@
             <p>La red de seguridad perdió el control. Pilotea a <b>N-07</b> por seis sectores, reúne energía, sobrevive a las máquinas y recupera el núcleo central.</p>
             <div class="menu-stats"><span>♥ 3 VIDAS POR JUGADOR</span><span>6 SECTORES</span><span>UNIFORMES PERSONALIZABLES</span></div>
             <div>
-                <button class="btn" onclick="startGame()">Iniciar misión</button>
+                <button class="btn" onclick="startGame()">Continuar campaña</button>
+                <button class="btn secondary map-menu-btn" type="button" onclick="showCampaignMap()">Mapa de campaña</button>
                 <button class="btn coop" type="button" onclick="startGame(2)">Jugar en cooperativo · 2 jugadores</button>
                 <button class="btn secondary outfit-menu-btn" type="button" onclick="showScreen('wardrobe-screen')">Personalizar robot</button>
                 <button class="btn secondary" onclick="showScreen('controls-screen')">Controles</button>
                 <button class="btn secondary" onclick="showScreen('story-screen')">Historia</button>
             </div>
+        </div>
+
+        <!-- MAPA DE CAMPAÑA -->
+        <div id="campaign-map-screen" class="screen hidden">
+            <div class="map-header"><div class="menu-kicker">RUTA DE RECUPERACIÓN</div><h1 class="map-title">MAPA DE CAMPAÑA</h1><p>Sigue la ruta de N-07. Cada sector se vuelve más difícil; completa uno para abrir el siguiente.</p></div>
+            <div class="campaign-map-board">
+                <div class="map-skyline"></div>
+                <svg class="campaign-route" viewBox="0 0 1000 340" preserveAspectRatio="none" aria-hidden="true"><path class="route-shadow" d="M80 238 C145 238 165 163 240 163 S340 235 420 211 S530 118 590 116 S700 164 770 163 S870 74 920 75"/><path class="route-line" id="campaign-route-progress" d="M80 238 C145 238 165 163 240 163 S340 235 420 211 S530 118 590 116 S700 164 770 163 S870 74 920 75"/></svg>
+                <div class="map-node" id="map-node-1" onclick="startMapLevel(1)"><b>01</b><span>Laboratorio</span><small>FÁCIL</small><em>☆☆☆</em></div>
+                <div class="map-node" id="map-node-2" onclick="startMapLevel(2)"><b>02</b><span>Fábrica</span><small>NORMAL</small><em>☆☆☆</em></div>
+                <div class="map-node" id="map-node-3" onclick="startMapLevel(3)"><b>03</b><span>Núcleo central</span><small>INTERMEDIO</small><em>☆☆☆</em></div>
+                <div class="map-node" id="map-node-4" onclick="startMapLevel(4)"><b>04</b><span>Jardín de silicio</span><small>AVANZADO</small><em>☆☆☆</em></div>
+                <div class="map-node" id="map-node-5" onclick="startMapLevel(5)"><b>05</b><span>Forja de titanio</span><small>DIFÍCIL</small><em>☆☆☆</em></div>
+                <div class="map-node" id="map-node-6" onclick="startMapLevel(6)"><b>06</b><span>Última defensa</span><small>JEFE FINAL</small><em>☆☆☆</em></div>
+                <div class="map-robot-token" id="map-robot-token"><span class="token-antenna"></span><span class="token-head"><i></i></span><span class="token-body"></span><span class="token-leg left"></span><span class="token-leg right"></span></div>
+            </div>
+            <div class="map-footer"><div class="map-progress-copy" id="map-progress-copy">SECTOR 01 DE 06 · 0 ESTRELLAS</div><button class="btn map-start-btn" id="map-start-btn" onclick="startMapLevel(campaignUnlockedLevel)">INICIAR SECTOR 01</button><button class="btn secondary" type="button" onclick="showScreen('main-menu')">Volver al menú</button></div>
         </div>
 
         <!-- PERSONALIZACIÓN DEL ROBOT -->
@@ -235,7 +257,7 @@
             <p class="review-rating" id="review-rating">¡Misión impecable!</p>
             <div class="review-stats" id="review-stats">Vidas usadas: 0</div>
             <p class="review-hint" id="review-hint">Las estrellas se calculan según las vidas usadas en este sector.</p>
-            <button class="btn review-next" id="review-next" type="button" onclick="advanceAfterReview()">CONTINUAR AL SIGUIENTE SECTOR</button>
+            <button class="btn review-next" id="review-next" type="button" onclick="showCampaignMap()">CONTINUAR AL MAPA</button>
             <button class="btn secondary" type="button" onclick="returnToMenu()">Menú principal</button>
         </div>
 
@@ -373,6 +395,8 @@
         let playerLives = [3,3];
         let levelLifeStart = [3,3];
         let levelStars = [0,0,0,0,0,0];
+        let campaignBestStars = [0,0,0,0,0,0];
+        let campaignUnlockedLevel = 1;
         let playersMode = 1;
         const outfitPresets=[
             {name:'NEXUS MENTA',light:'#d5fff3',main:'#4bb79a',dark:'#193b3a'},
@@ -395,6 +419,9 @@
         let particles = [];
         let cores = [];
         let portal = null;
+        function loadCampaignProgress(){try{const saved=JSON.parse(localStorage.getItem("nexus-campaign-stars")||"[]");campaignBestStars=Array.from({length:6},(_,i)=>Math.max(0,Math.min(3,Number(saved[i])||0)));campaignUnlockedLevel=Math.max(1,Math.min(6,Number(localStorage.getItem("nexus-campaign-unlocked"))||1));levelStars=campaignBestStars.slice();}catch(e){}}
+        function saveCampaignProgress(){try{localStorage.setItem("nexus-campaign-stars",JSON.stringify(campaignBestStars));localStorage.setItem("nexus-campaign-unlocked",String(campaignUnlockedLevel));}catch(e){}}
+        loadCampaignProgress();
 
         // Definición del Jugador (N-07)
         function resetPlayer() {
@@ -435,6 +462,7 @@
         // --- DISEÑADOR DE NIVELES ---
         function loadLevel(levelNum) {
             currentLevel = levelNum;
+            playerLives=[3,3];
             levelCoresCollected = 0;
             resetPlayer();
             levelLifeStart=playerLives.slice();
@@ -566,6 +594,22 @@
         function selectArmor(index){selectedArmor=index;try{localStorage.setItem('nexus-armor',String(index));}catch(e){}refreshOutfitPreview();}
         (function enableRobotRotation(){const stage=document.getElementById('avatar-stage'),figure=document.getElementById('robot-figure');let down=false,lastX=0,angle=0;stage.addEventListener('pointerdown',e=>{down=true;lastX=e.clientX;figure.style.animation='none';stage.setPointerCapture(e.pointerId)});stage.addEventListener('pointermove',e=>{if(!down)return;angle+= (e.clientX-lastX)*.9;lastX=e.clientX;figure.style.transform='rotateY('+angle+'deg)'});const release=()=>{if(!down)return;down=false;figure.style.animation='robot-turn 14s linear infinite'};stage.addEventListener('pointerup',release);stage.addEventListener('pointercancel',release);})();
 
+        const campaignNodePositions=[[8,70],[24,48],[42,62],[59,34],[77,48],[92,22]];
+        function renderCampaignMap(){
+            const names=["Laboratorio","Fábrica","Núcleo central","Jardín de silicio","Forja de titanio","Última defensa"];
+            let starsTotal=0;
+            for(let i=1;i<=6;i++){
+                const node=document.getElementById("map-node-"+i),[left,top]=campaignNodePositions[i-1],unlocked=i<=campaignUnlockedLevel,stars=campaignBestStars[i-1]||0;
+                node.style.left=left+"%";node.style.top=top+"%";node.classList.toggle("unlocked",unlocked);node.classList.toggle("current",i===campaignUnlockedLevel);node.classList.toggle("completed",stars>0);node.setAttribute("aria-disabled",String(!unlocked));node.querySelector("em").textContent="★".repeat(stars)+"☆".repeat(3-stars);node.querySelector("em").style.visibility=stars||unlocked?"visible":"hidden";node.querySelector("span").textContent=names[i-1];starsTotal+=stars;
+            }
+            const marker=document.getElementById("map-robot-token"),[left,top]=campaignNodePositions[campaignUnlockedLevel-1];marker.style.left=left+"%";marker.style.top=top+"%";
+            document.getElementById("map-progress-copy").textContent=`SECTOR 0${campaignUnlockedLevel} DE 06 · ${starsTotal} ESTRELLAS OBTENIDAS`;
+            const start=document.getElementById("map-start-btn");start.disabled=false;start.textContent=campaignUnlockedLevel===6&&campaignBestStars[5]>0?"REPETIR SECTOR 06":"INICIAR SECTOR 0"+campaignUnlockedLevel;
+            if(campaignUnlockedLevel===6&&campaignBestStars.every(v=>v>0))start.textContent="VER RESULTADO DE CAMPAÑA";
+            document.getElementById("campaign-route-progress").style.strokeDasharray="1000";document.getElementById("campaign-route-progress").style.strokeDashoffset=String(1000-(campaignUnlockedLevel-1)*165);
+        }
+        function showCampaignMap(){renderCampaignMap();showScreen("campaign-map-screen");}
+        function startMapLevel(level){if(level>campaignUnlockedLevel)return;if(level===6&&campaignBestStars.every(v=>v>0)){triggerVictory();return;}loadLevel(level);gameState="PLAYING";document.querySelectorAll(".screen").forEach(screen=>screen.classList.add("hidden"));showToast("SECTOR 0"+level+" · MISIÓN EN CURSO");}
         function enterMainMenu(){clearTimeout(introTimer);gameState="MENU";const skip=document.getElementById("intro-skip");skip.textContent="ENTRAR AL MENÚ";skip.onclick=enterMainMenu;showScreen("main-menu");}
         function showBootSequence(){gameState="MENU";const skip=document.getElementById("intro-skip");skip.textContent="ENTRAR AL MENÚ";skip.onclick=enterMainMenu;document.getElementById("intro-title").textContent="NEXUS DESPERTANDO";document.getElementById("intro-copy").textContent="Calibrando unidad N-07 y preparando el centro de mando...";showScreen("intro-screen");introTimer=setTimeout(enterMainMenu,4200);}
         function startGame(mode=1) {
@@ -584,14 +628,14 @@
             clearTimeout(introTimer);
             playersMode = mode;
             playerLives=[3,3];
-            levelStars=[0,0,0,0,0,0];
+            levelStars=campaignBestStars.slice();
             initAudio();
             score = 0;
             enemiesDefeated = 0;
             coresCollected = 0;
-            loadLevel(1);
+            loadLevel(campaignUnlockedLevel);
             gameState = "PLAYING";
-            showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 01");
+            showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 0"+currentLevel);
             document.getElementById('intro-screen').classList.add('hidden');
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('gameover-screen').classList.add('hidden');
@@ -637,6 +681,9 @@
             const livesUsed=Math.max(0,(levelLifeStart[0]+levelLifeStart[1])-(playerLives[0]+playerLives[1]));
             const stars=livesUsed===0?3:livesUsed===1?2:1;
             levelStars[currentLevel-1]=stars;
+            campaignBestStars[currentLevel-1]=Math.max(campaignBestStars[currentLevel-1]||0,stars);
+            campaignUnlockedLevel=Math.max(campaignUnlockedLevel,Math.min(6,currentLevel+1));
+            saveCampaignProgress();
             const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL","JARDÍN DE SILICIO","FORJA DE TITANIO","ÚLTIMA DEFENSA"];
             document.getElementById("review-title").textContent=currentLevel===6?"¡CAMPAÑA COMPLETADA!":"SECTOR COMPLETADO";
             document.getElementById("review-sector").textContent=`SECTOR 0${currentLevel} · ${names[currentLevel-1]}`;
@@ -644,14 +691,13 @@
             document.getElementById("review-rating").textContent=stars===3?"¡Perfecto! No perdiste vidas.":stars===2?"¡Buen trabajo! Perdiste una vida.":"¡Sector superado! Sigue intentando conservar tus vidas.";
             document.getElementById("review-stats").textContent=`Vidas usadas en este sector: ${livesUsed} · Puntuación: ${score}`;
             document.getElementById("review-hint").textContent=stars===3?"3 estrellas · 0 vidas usadas":"Cada vida perdida reduce una estrella; con 2 o más vidas usadas obtienes 1 estrella.";
-            const next=document.getElementById("review-next");next.textContent=currentLevel===6?"VER RESULTADO FINAL":"CONTINUAR AL SECTOR 0"+(currentLevel+1);gameState="LEVEL_COMPLETE";playSound('core');showScreen("level-review-screen");
+            const next=document.getElementById("review-next");next.textContent=currentLevel===6?"VER MAPA Y RESULTADO FINAL":"CONTINUAR AL MAPA DE CAMPAÑA";gameState="LEVEL_COMPLETE";playSound('core');showScreen("level-review-screen");
         }
-        function advanceAfterReview(){if(currentLevel>=6){triggerVictory();return;}const next=currentLevel+1;loadLevel(next);gameState="PLAYING";document.getElementById("level-review-screen").classList.add("hidden");showToast("SECTOR 0"+next+" · CONTINÚA LA CAMPAÑA");}
         function triggerVictory() {
             saveBestScore();
             gameState = "VICTORY";
             playSound('core');
-            const starsEarned=levelStars.reduce((total,value)=>total+value,0);
+            const starsEarned=campaignBestStars.reduce((total,value)=>total+value,0);
             document.getElementById('vic-stats').innerText = `Puntuación Final: ${score} | Enemigos Derrotados: ${enemiesDefeated} | Estrellas: ${starsEarned}/18`;
             showScreen('victory-screen');
         }
