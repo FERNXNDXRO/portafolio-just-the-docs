@@ -235,6 +235,7 @@
         // --- ENTIDADES Y OBJETOS ---
         let player = {};
         let player2 = null;
+        let playerLives = [3,3];
         let playersMode = 1;
         let platforms = [];
         let enemies = [];
@@ -249,16 +250,35 @@
                 x: 100, y: 300, width: 34, height: 46,
                 vx: 0, vy: 0, speed: 3.8, jumpForce: -10.5,
                 grounded: false, facing: 'right',
-                hp: 100, maxHp: 100,
+                hp: 100, maxHp: 100, lives: playerLives[0],
                 energy: 100, maxEnergy: 100,
                 isDashing: false, dashTimer: 0, dashCooldown: 0,
                 shootCooldown: 0, hurtTimer: 0, animTimer: 0
             };
-            player2 = playersMode === 2 ? {...player,x:150,hp:100,energy:100,facing:'right'} : null;
+            player2 = playersMode === 2 ? {...player,x:150,hp:100,energy:100,lives:playerLives[1],facing:'right'} : null;
         }
         function activePlayers() { return [player, ...(playersMode===2 && player2 ? [player2] : [])].filter(p=>p && p.hp>0); }
         function nearestPlayer(x,y) { const team=activePlayers(); return team.sort((a,b)=>Math.hypot(a.x-x,a.y-y)-Math.hypot(b.x-x,b.y-y))[0] || player; }
         function checkTeamWipe() { if(activePlayers().length===0) triggerGameOver(); }
+        function loseLife(p) {
+            const index=p===player2?1:0;
+            if(playerLives[index]<=0)return;
+            playerLives[index]--;
+            p.lives=playerLives[index];
+            p.hp=0;
+            if(p.lives>0){
+                p.x=index===0?100:150;p.y=300;p.vx=0;p.vy=0;p.hp=p.maxHp;p.energy=p.maxEnergy;
+                p.hurtTimer=110;p.isDashing=false;p.dashTimer=0;p.dashCooldown=0;
+                showToast((index===0?'J1':'J2')+' · PERDISTE UNA VIDA · QUEDAN '+p.lives);
+            } else {
+                showToast((index===0?'J1':'J2')+' · SIN VIDAS');
+                checkTeamWipe();
+            }
+        }
+        function damagePlayer(p,amount) {
+            p.hp=Math.max(0,p.hp-amount);
+            if(p.hp<=0)loseLife(p);
+        }
 
         // --- DISEÑADOR DE NIVELES ---
         function loadLevel(levelNum) {
@@ -378,6 +398,7 @@
 
         function startGame(mode=1) {
             playersMode = mode;
+            playerLives=[3,3];
             initAudio();
             score = 0;
             enemiesDefeated = 0;
@@ -448,7 +469,7 @@
             p.x+=p.vx;resolveCollisionsX(p);p.grounded=false;p.y+=p.vy;resolveCollisionsY(p);
             const mapWidth=[0,1400,1600,1000,1850,1900,1200][currentLevel]||1400;
             p.x=Math.max(0,Math.min(mapWidth-p.width,p.x));
-            if(p.y>canvas.height+100){p.hp=0;checkTeamWipe();}
+            if(p.y>canvas.height+100)loseLife(p);
         }
 
         // --- BUCLE PRINCIPAL DE ACTUALIZACIÓN ---
@@ -534,10 +555,7 @@
             // Límites del mapa por nivel
             if (player.x < 0) player.x = 0;
             if (player.x + player.width > mapWidth) player.x = mapWidth - player.width;
-            if (player.y > canvas.height + 100) {
-                player.hp = 0;
-                checkTeamWipe();
-            }
+            if (player.y > canvas.height + 100) loseLife(player);
 
             }
             if(playersMode===2 && player2 && player2.hp>0) updateSecondPlayer();
@@ -624,7 +642,7 @@
                 // Contacto enemigo con cada integrante que siga activo
                 activePlayers().forEach(p=>{
                     if(Math.abs((p.x+p.width/2)-(e.x+e.width/2))<(p.width/2+e.width/2)&&Math.abs((p.y+p.height/2)-(e.y+e.height/2))<(p.height/2+e.height/2)&&p.hurtTimer===0&&!p.isDashing){
-                        p.hp-=20;p.hurtTimer=45;screenShake=8;playSound('hit');checkTeamWipe();
+                        damagePlayer(p,20);p.hurtTimer=45;screenShake=8;playSound('hit');
                     }
                 });
             });
@@ -638,7 +656,7 @@
                 // Colisión Proyectil con jugador
                 if (!pr.fromPlayer) {
                     const target=activePlayers().find(p=>Math.hypot((p.x+p.width/2)-pr.x,(p.y+p.height/2)-pr.y)<p.width/2);
-                    if(target&&target.hurtTimer===0&&!target.isDashing){target.hp-=15;target.hurtTimer=40;screenShake=6;playSound('hit');projectiles.splice(i,1);checkTeamWipe();continue;}
+                    if(target&&target.hurtTimer===0&&!target.isDashing){damagePlayer(target,15);target.hurtTimer=40;screenShake=6;playSound('hit');projectiles.splice(i,1);continue;}
                 } else {
                     // Colisión Proyectil de jugador con enemigos
                     let hitEnemy = false;
@@ -778,7 +796,10 @@
             ctx.save();ctx.fillStyle="rgba(5,12,15,.91)";ctx.fillRect(0,0,900,54);ctx.fillStyle="rgba(115,248,209,.12)";ctx.fillRect(0,52,900,2);
             ctx.fillStyle="#d7e7df";ctx.font="800 10px system-ui";ctx.fillText("N-07",20,18);ctx.fillStyle="#7c9990";ctx.font="700 8px system-ui";ctx.fillText("UNIDAD DE MANTENIMIENTO",20,31);
             ctx.fillStyle="#ff7b88";ctx.font="700 9px system-ui";ctx.fillText("INTEGRIDAD",190,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(190,24,128,9);ctx.fillStyle="#ff6879";ctx.fillRect(190,24,128*Math.max(0,player.hp/player.maxHp),9);
-            ctx.fillStyle="#75f3cd";ctx.fillText("ENERGÍA",338,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(338,24,105,9);ctx.fillStyle="#54dcb8";ctx.fillRect(338,24,105*Math.max(0,player.energy/player.maxEnergy),9);
+            ctx.fillStyle="#f0bd68";ctx.font="800 8px system-ui";
+            if(playersMode===2&&player2){ctx.fillText("J1 · VIDAS "+playerLives[0],20,45);ctx.fillStyle="#76b8ff";ctx.fillText("J2 · VIDAS "+playerLives[1],105,45);}
+            else ctx.fillText("VIDAS · "+playerLives[0],20,45);
+            ctx.fillStyle="#75f3cd";ctx.font="700 9px system-ui";ctx.fillText("ENERGÍA",338,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(338,24,105,9);ctx.fillStyle="#54dcb8";ctx.fillRect(338,24,105*Math.max(0,player.energy/player.maxEnergy),9);
             if(playersMode===2&&player2){ctx.fillStyle="#76b8ff";ctx.fillText("J2 · VIDA",190,43);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(248,37,90,7);ctx.fillStyle="#55a7ff";ctx.fillRect(248,37,90*Math.max(0,player2.hp/player2.maxHp),7);}
             const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL","JARDÍN DE SILICIO","FORJA DE TITANIO","ÚLTIMA DEFENSA"];ctx.fillStyle="#eaf5ef";ctx.font="800 10px system-ui";ctx.fillText(names[currentLevel-1]||"SECTOR",486,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("SECTOR 0"+currentLevel+" / 06",486,34);
             ctx.fillStyle="#f0bd68";ctx.font="700 9px system-ui";ctx.fillText("NÚCLEOS "+levelCoresCollected+" / "+totalCoresInLevel,626,20);ctx.fillStyle="#d3e2db";ctx.font="800 10px system-ui";ctx.fillText(String(score).padStart(6,"0"),786,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("PUNTUACIÓN",786,34);
