@@ -40,7 +40,7 @@ Puedes iniciar una partida individual o elegir **Modo cooperativo · 2 jugadores
 - **Pausa o continuar:** Esc o P.
 - **Reiniciar el nivel:** R.
 
-En el modo individual, también puedes usar las flechas para moverte y saltar. Desde el menú principal, abre **Personalizar robot**. Ahí encontrarás dos apartados: **Vestimenta y accesorios**, para elegir antena, casco, mochila o alas, y **Color del uniforme**, para seleccionar uno de seis colores o crear uno personalizado. La elección queda guardada en el navegador. Durante la partida, la parte superior muestra la integridad, energía y vidas de cada jugador.
+En el modo individual, también puedes usar las flechas para moverte y saltar. Desde el menú principal, abre **Personalizar robot**. Ahí encontrarás apartados separados para **Vestimenta y accesorios** y **Color del uniforme**. El robot de vista previa gira continuamente y también puedes arrastrarlo para verlo en 360°. Puedes elegir antena, casco táctico, mochila, alas, gorra de piloto, corona o sombrero; además, hay cuatro estilos de uniforme y seis colores prediseñados, con opción de crear uno personalizado. La apariencia elegida se conserva en el navegador y se refleja en el juego. Durante la partida, la parte superior muestra la integridad, energía y vidas de cada jugador.
 
 ## Los seis sectores
 
