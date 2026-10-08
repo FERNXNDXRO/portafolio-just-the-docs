@@ -40,7 +40,7 @@ Puedes iniciar una partida individual o elegir **Modo cooperativo · 2 jugadores
 - **Pausa o continuar:** Esc o P.
 - **Reiniciar el nivel:** R.
 
-En el modo individual, también puedes usar las flechas para moverte y saltar.
+En el modo individual, también puedes usar las flechas para moverte y saltar. Desde el menú principal, abre **Vestimenta del robot** para elegir uno de seis uniformes o crear un color personalizado; la elección queda guardada en el navegador. Durante la partida, la parte superior muestra la integridad, energía y vidas de cada jugador.
 
 ## Los seis sectores
 
