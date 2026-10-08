@@ -32,7 +32,9 @@
     #main-menu>div:last-child{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:min(500px,100%)}#main-menu .btn{width:100%;min-width:0;margin:0;padding:11px 12px;font-size:.72rem;letter-spacing:.07em}#main-menu .btn:first-child,#main-menu .btn.coop,#main-menu .outfit-menu-btn{grid-column:1/-1}#main-menu .outfit-menu-btn{background:linear-gradient(135deg,#fff,#d7e9e3);border-color:#fff;color:#101b18}
     .menu-stats{display:flex;flex-wrap:wrap;gap:8px;margin:-8px 0 15px}.menu-stats span{padding:7px 10px;border:1px solid rgba(115,248,209,.32);border-radius:999px;background:rgba(8,28,31,.85);color:#e2fff4;font-size:.65rem;font-weight:850;letter-spacing:.08em}
     .hud-player-card{fill:rgba(8,19,23,.96);stroke-width:1}.hud-player-name{font:900 9px system-ui}.hud-small{fill:#e8f4ee;font:800 8px system-ui}
-    #wardrobe-screen{background:linear-gradient(135deg,rgba(4,12,16,.97),rgba(4,12,16,.86))}.outfit-panel{width:min(520px,100%);padding:18px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(7,18,22,.9);box-shadow:0 18px 60px rgba(0,0,0,.35)}.outfit-preview{width:90px;height:110px;margin:0 auto 12px;position:relative;border-radius:46% 46% 18% 18%;background:linear-gradient(160deg,#f5f8f7 0%,var(--suit,#4bb79a) 38%,#193b3a 100%);border:3px solid rgba(255,255,255,.72);box-shadow:0 0 28px color-mix(in srgb,var(--suit,#4bb79a),transparent 45%)}.outfit-preview:before{content:"";position:absolute;width:48px;height:27px;left:18px;top:10px;border-radius:8px;background:#0c1a1d;border:2px solid rgba(255,255,255,.65);box-shadow:inset 0 0 0 4px rgba(125,245,218,.3)}.outfit-preview:after{content:"";position:absolute;width:16px;height:16px;left:34px;top:54px;border-radius:50%;background:#ff6b7a;box-shadow:0 0 16px currentColor}.outfit-name{margin:0 0 14px;color:#fff;font-weight:900;letter-spacing:.1em}.outfit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.outfit-choice{border:1px solid rgba(255,255,255,.22);border-radius:9px;padding:10px 6px;background:#132329;color:#fff;font:700 .75rem system-ui;cursor:pointer}.outfit-choice:before{content:"";display:block;width:22px;height:22px;margin:0 auto 6px;border:2px solid #fff;border-radius:50%;background:var(--swatch)}.outfit-choice.selected{outline:3px solid #ffd43b;background:#263b42}.custom-outfit{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 0;color:#fff;font-weight:800}.custom-outfit input{width:54px;height:38px;padding:2px;border:2px solid #fff;border-radius:8px;background:#111;cursor:pointer}.wardrobe-note{margin:10px 0 14px;font-size:.78rem}
+    #wardrobe-screen{background:linear-gradient(135deg,rgba(4,12,16,.97),rgba(4,12,16,.86));overflow-y:auto}.outfit-panel{width:min(560px,100%);padding:18px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(7,18,22,.9);box-shadow:0 18px 60px rgba(0,0,0,.35)}.outfit-preview{width:90px;height:110px;margin:0 auto 12px;position:relative;border-radius:46% 46% 18% 18%;background:linear-gradient(160deg,#f5f8f7 0%,var(--suit,#4bb79a) 38%,#193b3a 100%);border:3px solid rgba(255,255,255,.72);box-shadow:0 0 28px color-mix(in srgb,var(--suit,#4bb79a),transparent 45%)}.outfit-preview:before{content:"";position:absolute;width:48px;height:27px;left:18px;top:10px;border-radius:8px;background:#0c1a1d;border:2px solid rgba(255,255,255,.65);box-shadow:inset 0 0 0 4px rgba(125,245,218,.3);z-index:2}.outfit-preview:after{content:"";position:absolute;width:16px;height:16px;left:34px;top:54px;border-radius:50%;background:#ff6b7a;box-shadow:0 0 16px currentColor}.outfit-name{margin:0 0 14px;color:#fff;font-weight:900;letter-spacing:.1em}.outfit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.outfit-choice{border:1px solid rgba(255,255,255,.22);border-radius:9px;padding:10px 6px;background:#132329;color:#fff;font:700 .75rem system-ui;cursor:pointer}.outfit-choice:before{content:"";display:block;width:22px;height:22px;margin:0 auto 6px;border:2px solid #fff;border-radius:50%;background:var(--swatch)}.outfit-choice.selected{outline:3px solid #ffd43b;background:#263b42}.custom-outfit{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 0;color:#fff;font-weight:800}.custom-outfit input{width:54px;height:38px;padding:2px;border:2px solid #fff;border-radius:8px;background:#111;cursor:pointer}.wardrobe-note{margin:10px 0 14px;font-size:.78rem}.accessory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:8px 0 12px}.accessory-choice{padding:9px 5px;border:1px solid rgba(255,255,255,.2);border-radius:9px;background:#132329;color:#fff;font:800 .68rem system-ui;cursor:pointer}.accessory-choice.selected{outline:3px solid #ffd43b;background:#263b42}.wardrobe-subtitle{margin:13px 0 6px;color:#9fffe1;font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.preview-accessory{position:absolute;z-index:3;display:none;pointer-events:none}.preview-accessory.antenna{display:block;left:43px;top:-15px;width:4px;height:29px;background:#f0bd68;border-radius:5px}.preview-accessory.antenna:after{content:"";position:absolute;left:-3px;top:-5px;width:10px;height:10px;border-radius:50%;background:#ffdc76;box-shadow:0 0 12px #ffdc76}.preview-accessory.helmet{display:block;left:4px;top:-5px;width:82px;height:26px;border:4px solid #e7edf0;border-radius:18px 18px 9px 9px;box-shadow:inset 0 -7px 0 var(--suit,#4bb79a)}.preview-accessory.pack{display:block;left:-12px;top:36px;width:18px;height:42px;border:2px solid #d9e2df;border-radius:5px;background:var(--suit,#4bb79a)}.preview-accessory.wings{display:block;left:5px;top:41px;width:80px;height:22px;background:#d8e4e1;clip-path:polygon(0 50%,24% 0,76% 0,100% 50%,76% 100%,24% 100%);opacity:.9}
+    #intro-screen{background:radial-gradient(ellipse at 50% 44%,rgba(30,111,100,.48),rgba(3,10,14,.96) 68%)}.intro-stage{position:relative;width:190px;height:175px;margin:8px auto 12px;display:grid;place-items:center}.intro-ring{position:absolute;width:154px;height:154px;border:2px solid rgba(115,248,209,.5);border-radius:50%;box-shadow:0 0 35px rgba(115,248,209,.2),inset 0 0 30px rgba(115,248,209,.1);animation:ring-pulse 1.8s ease-in-out infinite}.intro-ring:before,.intro-ring:after{content:"";position:absolute;inset:13px;border:1px dashed rgba(115,248,209,.62);border-radius:50%;animation:orbit 8s linear infinite}.intro-ring:after{inset:-10px;border-color:rgba(255,189,104,.55);animation-direction:reverse;animation-duration:12s}.intro-robot{position:relative;width:74px;height:88px;border-radius:20px 20px 14px 14px;background:linear-gradient(145deg,#e8f7ef,#43b69a 57%,#17383a);border:2px solid #d8fff0;box-shadow:0 0 32px rgba(115,248,209,.42);animation:robot-float 1.7s ease-in-out infinite}.intro-robot:before{content:"";position:absolute;top:-30px;left:12px;width:46px;height:34px;border:2px solid #d8fff0;border-radius:10px;background:#122529;box-shadow:inset 0 0 0 5px rgba(115,248,209,.22)}.intro-robot:after{content:"";position:absolute;top:12px;left:28px;width:15px;height:15px;border-radius:50%;background:#ff6b7a;box-shadow:0 0 18px #ff6b7a}.intro-scan{position:absolute;width:180px;height:2px;background:linear-gradient(90deg,transparent,#a6ffe0,transparent);box-shadow:0 0 12px #73f8d1;animation:scan 2.4s ease-in-out infinite}.intro-title{font-size:clamp(1.7rem,4vw,3.2rem);margin:0}.intro-copy{margin:8px auto 14px}.intro-progress{width:min(300px,85%);height:8px;margin:0 auto 14px;border-radius:99px;background:rgba(255,255,255,.13);overflow:hidden}.intro-progress span{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#73f8d1,#ffd43b);animation:intro-load 4.2s linear forwards}.intro-skip{background:linear-gradient(135deg,#fff,#dce9e4);color:#111!important;border-color:#fff!important;font-weight:900}@keyframes robot-float{50%{transform:translateY(-10px) rotate(-2deg)}}@keyframes ring-pulse{50%{transform:scale(1.06);opacity:.72}}@keyframes orbit{to{transform:rotate(360deg)}}@keyframes scan{0%,100%{transform:translateY(-55px);opacity:.25}50%{transform:translateY(48px);opacity:.9}}@keyframes intro-load{to{transform:scaleX(1)}}
+    @media(max-width:520px){.accessory-grid{grid-template-columns:repeat(2,1fr)}.intro-stage{height:135px;transform:scale(.82);margin:-4px auto 0}#intro-screen{padding:10px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
@@ -76,7 +78,7 @@
             <h1 style="font-size:clamp(1.7rem,4vw,3.2rem)">TALLER DE VESTIMENTA</h1>
             <p>Elige un uniforme o usa el selector para crear tu propio color. La apariencia se guarda en este navegador.</p>
             <div class="outfit-panel">
-                <div class="outfit-preview" id="outfit-preview"></div>
+                <div class="outfit-preview" id="outfit-preview"><span id="outfit-accessory" class="preview-accessory"></span></div>
                 <div class="outfit-name" id="outfit-name">NEXUS MENTA</div>
                 <div class="outfit-grid">
                     <button class="outfit-choice selected" style="--swatch:#4bb79a" onclick="selectOutfit(0)">Nexus</button>
@@ -87,6 +89,14 @@
                     <button class="outfit-choice" style="--swatch:#68a84f" onclick="selectOutfit(5)">Bosque</button>
                 </div>
                 <label class="custom-outfit">Diseña tu color <input id="custom-outfit" type="color" value="#4bb79a" oninput="setCustomOutfit(this.value)"></label>
+                <div class="wardrobe-subtitle">Accesorios del robot</div>
+                <div class="accessory-grid">
+                    <button class="accessory-choice selected" onclick="selectAccessory(0)">Sin accesorio</button>
+                    <button class="accessory-choice" onclick="selectAccessory(1)">Antena</button>
+                    <button class="accessory-choice" onclick="selectAccessory(2)">Casco</button>
+                    <button class="accessory-choice" onclick="selectAccessory(3)">Mochila</button>
+                    <button class="accessory-choice" onclick="selectAccessory(4)">Alas</button>
+                </div>
                 <p class="wardrobe-note">El uniforme seleccionado también se usa en el modo cooperativo; los colores de J1 y J2 siguen diferenciando sus indicadores.</p>
             </div>
             <button class="btn" type="button" onclick="showScreen('main-menu')">Volver al menú</button>
@@ -113,6 +123,16 @@
             <h1>HISTORIA</h1>
             <p>Las instalaciones de investigación estaban gobernadas por el superordenador NEXUS. Una corrupción se extendió desde el laboratorio hasta la forja, convirtiendo a las unidades autónomas en máquinas hostiles.<br><br><b>N-07</b> debe cruzar seis sectores, recuperar energía y enfrentarse a Archon para restaurar el sistema.</p>
             <button class="btn" onclick="showScreen('main-menu')">Volver</button>
+        </div>
+
+        <!-- SECUENCIA ANIMADA DE INICIO -->
+        <div id="intro-screen" class="screen hidden">
+            <div class="menu-kicker">Protocolo de arranque</div>
+            <div class="intro-stage"><div class="intro-ring"></div><div class="intro-scan"></div><div class="intro-robot"></div></div>
+            <h1 class="intro-title" id="intro-title">N-07 DESPERTANDO</h1>
+            <p class="intro-copy" id="intro-copy">Sincronizando sistemas y preparando la misión...</p>
+            <div class="intro-progress"><span></span></div>
+            <button class="btn intro-skip" type="button" onclick="skipIntro()">SALTAR ANIMACIÓN · INICIAR</button>
         </div>
 
         <!-- MENÚ DE PAUSA -->
@@ -274,6 +294,10 @@
         ];
         let selectedOutfit=0;
         let customOutfitColor='#4bb79a';
+        let selectedAccessory=0;
+        const accessoryNames=['SIN ACCESORIO','ANTENA DE SEÑAL','CASCO TÁCTICO','MOCHILA DE ENERGÍA','ALAS DE ESTABILIDAD'];
+        let pendingGameMode=1;
+        let introTimer=null;
         let platforms = [];
         let enemies = [];
         let projectiles = [];
@@ -441,13 +465,26 @@
             return '#'+[r,g,bl].map(v=>v.toString(16).padStart(2,'0')).join('');
         }
         function activeOutfit(){return typeof selectedOutfit==='number'?outfitPresets[selectedOutfit]:{name:'A TU GUSTO',main:customOutfitColor,light:mixHex(customOutfitColor,'#ffffff',.48),dark:mixHex(customOutfitColor,'#071014',.62)};}
-        function refreshOutfitPreview(){const o=activeOutfit(),preview=document.getElementById('outfit-preview');if(!preview)return;preview.style.setProperty('--suit',o.main);document.getElementById('outfit-name').textContent=o.name;document.querySelectorAll('.outfit-choice').forEach((b,i)=>b.classList.toggle('selected',typeof selectedOutfit==='number'&&selectedOutfit===i));document.getElementById('custom-outfit').value=customOutfitColor;}
+        function refreshOutfitPreview(){const o=activeOutfit(),preview=document.getElementById('outfit-preview');if(!preview)return;preview.style.setProperty('--suit',o.main);document.getElementById('outfit-name').textContent=o.name;document.querySelectorAll('.outfit-choice').forEach((b,i)=>b.classList.toggle('selected',typeof selectedOutfit==='number'&&selectedOutfit===i));document.getElementById('custom-outfit').value=customOutfitColor;const accessory=document.getElementById('outfit-accessory');accessory.className='preview-accessory'+(selectedAccessory===1?' antenna':selectedAccessory===2?' helmet':selectedAccessory===3?' pack':selectedAccessory===4?' wings':'');document.querySelectorAll('.accessory-choice').forEach((b,i)=>b.classList.toggle('selected',selectedAccessory===i));}
         function selectOutfit(index){selectedOutfit=index;customOutfitColor=outfitPresets[index].main;try{localStorage.setItem('nexus-outfit',String(index));localStorage.setItem('nexus-custom-outfit',customOutfitColor);}catch(e){}refreshOutfitPreview();}
         function setCustomOutfit(color){customOutfitColor=color;selectedOutfit='custom';try{localStorage.setItem('nexus-outfit','custom');localStorage.setItem('nexus-custom-outfit',color);}catch(e){}refreshOutfitPreview();}
-        function loadOutfitPreference(){try{const saved=localStorage.getItem('nexus-outfit');customOutfitColor=localStorage.getItem('nexus-custom-outfit')||customOutfitColor;if(saved==='custom')selectedOutfit='custom';else if(saved!==null&&Number.isInteger(Number(saved))&&outfitPresets[Number(saved)])selectedOutfit=Number(saved);}catch(e){}refreshOutfitPreview();}
+        function loadOutfitPreference(){try{const saved=localStorage.getItem('nexus-outfit');customOutfitColor=localStorage.getItem('nexus-custom-outfit')||customOutfitColor;if(saved==='custom')selectedOutfit='custom';else if(saved!==null&&Number.isInteger(Number(saved))&&outfitPresets[Number(saved)])selectedOutfit=Number(saved);selectedAccessory=Math.max(0,Math.min(4,Number(localStorage.getItem('nexus-accessory')||0)));}catch(e){}refreshOutfitPreview();}
         loadOutfitPreference();
+        function selectAccessory(index){selectedAccessory=index;try{localStorage.setItem('nexus-accessory',String(index));}catch(e){}refreshOutfitPreview();}
 
         function startGame(mode=1) {
+            pendingGameMode=mode;
+            initAudio();
+            clearTimeout(introTimer);
+            document.getElementById('intro-title').textContent=mode===2?'DESPERTANDO A N-07 Y N-08':'N-07 DESPERTANDO';
+            document.getElementById('intro-copy').textContent=mode===2?'Sincronizando los dos robots. Prepárense para recuperar los seis sectores.':'Sincronizando sistemas y preparando la misión...';
+            gameState="INTRO";
+            showScreen('intro-screen');
+            introTimer=setTimeout(()=>launchGame(pendingGameMode),4200);
+        }
+        function skipIntro(){clearTimeout(introTimer);launchGame(pendingGameMode);}
+        function launchGame(mode) {
+            clearTimeout(introTimer);
             playersMode = mode;
             playerLives=[3,3];
             initAudio();
@@ -457,7 +494,7 @@
             loadLevel(1);
             gameState = "PLAYING";
             showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 01");
-            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('intro-screen').classList.add('hidden');
             document.getElementById('pause-screen').classList.add('hidden');
             document.getElementById('gameover-screen').classList.add('hidden');
             document.getElementById('victory-screen').classList.add('hidden');
@@ -484,6 +521,7 @@
         }
 
         function returnToMenu() {
+            clearTimeout(introTimer);
             gameState = "MENU";
             showScreen('main-menu');
         }
@@ -808,7 +846,7 @@
         }
         function draw() {
             ctx.clearRect(0,0,canvas.width,canvas.height);
-            if(gameState==="MENU"){drawMenuBackdrop();return;}
+            if(gameState==="MENU"||gameState==="INTRO"){drawMenuBackdrop();return;}
             ctx.save();const sx=(Math.random()-.5)*screenShake,sy=(Math.random()-.5)*screenShake;ctx.translate(-camera.x+sx,sy);
             const mapWidth=[0,1400,1600,1000,1850,1900,1200][currentLevel]||1400;
             const palettes=[["#071116","#10242a","#43d8b2"],["#111018","#28232e","#d98668"],["#100d17","#251326","#de4f83"],["#091710","#18352c","#8fe66c"],["#1c100c","#3a2119","#ff934e"],["#140b18","#35152c","#ff5577"]],pal=palettes[currentLevel-1]||palettes[0];
@@ -839,10 +877,14 @@
             const x=player.x,y=player.y,w=player.width,h=player.height;if(player.hurtTimer>0&&player.hurtTimer%4>=2)return;ctx.save();if(player.isDashing){ctx.globalAlpha=.78;ctx.shadowColor=tint;ctx.shadowBlur=22;}
             const outfit=activeOutfit();
             const a=ctx.createLinearGradient(x,y,x+w,y+h);a.addColorStop(0,player.isDashing?"#ffffff":outfit.light);a.addColorStop(.4,player.isDashing?"#48d9bb":outfit.main);a.addColorStop(1,outfit.dark);
+            if(selectedAccessory===3){ctx.fillStyle=outfit.dark;ctx.fillRect(x-5,y+15,10,21);ctx.strokeStyle="#c8fff0";ctx.strokeRect(x-5,y+15,10,21);}
             ctx.fillStyle="#1a292d";ctx.fillRect(x+2,y+15,7,19);ctx.fillStyle="#50615c";ctx.fillRect(x+3,y+17,5,12);ctx.fillStyle="#283a3c";ctx.fillRect(x+7,y+37,8,8);ctx.fillRect(x+21,y+37,8,8);ctx.fillStyle="#111b1e";ctx.fillRect(x+4,y+43,12,3);ctx.fillRect(x+19,y+43,12,3);
             ctx.fillStyle=a;ctx.beginPath();ctx.moveTo(x+8,y+14);ctx.lineTo(x+26,y+14);ctx.lineTo(x+30,y+34);ctx.lineTo(x+25,y+39);ctx.lineTo(x+8,y+38);ctx.lineTo(x+4,y+33);ctx.closePath();ctx.fill();ctx.strokeStyle="rgba(224,245,232,.65)";ctx.stroke();
+            if(selectedAccessory===4){ctx.fillStyle=outfit.light;ctx.beginPath();ctx.moveTo(x+4,y+14);ctx.lineTo(x-7,y+9);ctx.lineTo(x-3,y+25);ctx.lineTo(x+6,y+29);ctx.closePath();ctx.fill();ctx.beginPath();ctx.moveTo(x+29,y+14);ctx.lineTo(x+40,y+9);ctx.lineTo(x+36,y+25);ctx.lineTo(x+27,y+29);ctx.closePath();ctx.fill();}
             ctx.fillStyle="#273a3c";ctx.beginPath();ctx.arc(x+6,y+17,4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+28,y+17,4,0,Math.PI*2);ctx.fill();ctx.shadowColor=tint;ctx.shadowBlur=14;ctx.fillStyle=tint;ctx.beginPath();ctx.arc(x+17,y+25,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-            ctx.fillStyle="#778980";ctx.beginPath();ctx.roundRect(x+7,y,20,16,4);ctx.fill();ctx.strokeStyle="rgba(233,248,238,.72)";ctx.stroke();ctx.fillStyle="#0b1719";ctx.beginPath();ctx.roundRect(x+9,y+4,16,7,2);ctx.fill();ctx.shadowColor="#8effdf";ctx.shadowBlur=10;ctx.fillStyle=tint;ctx.fillRect(player.facing==="right"?x+16:x+9,y+6,9,2);ctx.shadowBlur=0;if(label){ctx.fillStyle="#fff";ctx.font="900 9px system-ui";ctx.textAlign="center";ctx.fillText(label,x+w/2,y-5);ctx.textAlign="left";}ctx.restore();
+            ctx.fillStyle=selectedAccessory===2?outfit.light:"#778980";ctx.beginPath();ctx.roundRect(x+7,y,20,16,4);ctx.fill();ctx.strokeStyle="rgba(233,248,238,.72)";ctx.stroke();
+            if(selectedAccessory===1){ctx.strokeStyle="#f0bd68";ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+17,y+1);ctx.lineTo(x+17,y-9);ctx.stroke();ctx.fillStyle="#ffdc76";ctx.beginPath();ctx.arc(x+17,y-10,3,0,Math.PI*2);ctx.fill();}
+            ctx.fillStyle="#0b1719";ctx.beginPath();ctx.roundRect(x+9,y+4,16,7,2);ctx.fill();ctx.shadowColor="#8effdf";ctx.shadowBlur=10;ctx.fillStyle=tint;ctx.fillRect(player.facing==="right"?x+16:x+9,y+6,9,2);ctx.shadowBlur=0;if(label){ctx.fillStyle="#fff";ctx.font="900 9px system-ui";ctx.textAlign="center";ctx.fillText(label,x+w/2,y-5);ctx.textAlign="left";}ctx.restore();
         }
         function drawHudPlayerCard(x,p,label,color,lives) {
             ctx.save();ctx.fillStyle="rgba(9,20,25,.96)";ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(x,6,188,58,10);ctx.fill();ctx.stroke();
