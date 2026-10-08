@@ -90,6 +90,9 @@
 
 
 
+    .game-pause-button{position:absolute;z-index:8;top:78px;right:14px;min-width:78px;height:36px;display:flex;align-items:center;justify-content:center;gap:7px;padding:0 11px;border:1px solid rgba(151,248,216,.6);border-radius:8px;background:linear-gradient(145deg,rgba(10,32,34,.94),rgba(5,17,21,.94));color:#edfff7;box-shadow:0 4px 15px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.12);font:900 .58rem system-ui;letter-spacing:.12em;cursor:pointer;transition:transform .16s,border-color .16s,background .16s}.game-pause-button:hover{transform:translateY(-2px);border-color:#fff0a6;background:linear-gradient(145deg,#205347,#102a2c)}.game-pause-button span{font-size:.82rem;color:#8fffd5}.game-pause-button[hidden]{display:none!important}
+    .pause-screen{background:radial-gradient(ellipse at 50% 44%,rgba(39,104,90,.43),rgba(3,9,13,.93) 67%);backdrop-filter:blur(8px)}.pause-card{width:min(430px,94%);padding:28px 30px 22px;border:1px solid rgba(151,248,216,.34);border-radius:18px;background:linear-gradient(145deg,rgba(15,34,38,.97),rgba(5,14,19,.98));box-shadow:0 22px 70px rgba(0,0,0,.58),inset 0 1px rgba(255,255,255,.08);text-align:center}.pause-emblem{width:48px;height:48px;margin:0 auto 12px;display:grid;place-items:center;border:1px solid #8fffd5;border-radius:14px;background:linear-gradient(145deg,#235c50,#10282a);color:#b8ffe8;font-size:1.2rem;box-shadow:0 0 24px rgba(104,247,202,.22)}.pause-kicker{color:#91cdb7;font-size:.57rem;font-weight:900;letter-spacing:.2em}.pause-card h1{margin:9px 0 5px;color:#f3fff8;font-size:clamp(1.55rem,4vw,2.1rem);letter-spacing:.1em}.pause-card p{margin:0 0 19px;color:#a9c1b6;font-size:.8rem}.pause-actions{display:grid;gap:9px}.pause-actions .btn{width:100%;min-height:46px;margin:0;display:flex;align-items:center;justify-content:center;gap:9px;border-radius:9px;font-size:.72rem;font-weight:950;letter-spacing:.08em}.pause-actions .btn span{font-size:1rem}.pause-resume{border-color:#b9ffe5!important;background:linear-gradient(135deg,#9ff8d6,#40bd94)!important;color:#06241b!important}.pause-restart{border-color:rgba(162,233,210,.34)!important;background:linear-gradient(135deg,#1c3c3c,#102328)!important;color:#e8fff5!important}.pause-home{border-color:rgba(246,203,126,.38)!important;background:linear-gradient(135deg,#463a24,#211e17)!important;color:#ffe7b2!important}.pause-hint{display:block;margin-top:17px;color:#75968a;font-size:.52rem;font-weight:850;letter-spacing:.13em}
+    @media(max-width:600px){.game-pause-button{top:76px;right:8px;min-width:68px;height:34px;padding:0 8px;font-size:.52rem}.pause-card{padding:22px 18px 18px}.pause-actions .btn{min-height:44px}}
     #main-menu{display:block;inset:0;width:100%;height:100%;padding:0;overflow:hidden;text-align:left;background:linear-gradient(90deg,rgba(3,10,15,.86),rgba(4,13,18,.34) 27%,rgba(3,11,17,.05) 52%,rgba(4,12,16,.32) 72%,rgba(3,9,14,.82)),linear-gradient(0deg,rgba(2,8,12,.93),transparent 27%,transparent 75%,rgba(2,8,12,.54));backdrop-filter:none}
     .lobby-topbar{position:absolute;z-index:4;top:0;left:0;right:0;height:68px;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(205,248,233,.13);background:linear-gradient(180deg,rgba(4,12,17,.82),rgba(4,12,17,.2));}
     .lobby-logo{display:flex;align-items:center;gap:9px}.logo-mark{display:grid;place-items:center;width:38px;height:38px;border:1px solid #95ffe0;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:linear-gradient(145deg,#62e5bc,#1a675a);color:#04110f;font-size:1.05rem;font-weight:1000;text-shadow:0 1px white;box-shadow:0 0 18px rgba(97,239,197,.28)}.lobby-logo span:last-child{display:flex;flex-direction:column}.lobby-logo b{color:#f2fff9;font-size:1rem;letter-spacing:.24em}.lobby-logo small{margin-top:2px;color:#9bc8b9;font-size:.52rem;font-weight:900;letter-spacing:.18em}.lobby-status{display:flex;flex-direction:column;gap:5px;align-items:center;color:#dcece3;font-size:.59rem;font-weight:900;letter-spacing:.16em}.lobby-status span{color:#8cf4cb}.lobby-status i,.lobby-panel-kicker i{display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%;background:#73f8bd;box-shadow:0 0 10px #73f8bd}.lobby-status b{color:#98a9a6;font-size:.5rem;letter-spacing:.2em}.lobby-wallet{display:flex;gap:9px;align-items:center}.lobby-wallet>span{padding:8px 10px;border:1px solid rgba(198,235,222,.17);border-radius:7px;background:rgba(7,19,24,.76);color:#f1d582;font-size:.72rem}.lobby-wallet b{color:#9cb8ad;font-size:.53rem;letter-spacing:.12em}.lobby-wallet strong{color:#f5fff9}.lobby-wallet .wallet-rank{color:#c9ddd1;font-size:.56rem;font-weight:900;letter-spacing:.12em}
@@ -137,6 +140,7 @@
     <div id="game-container">
         <canvas id="gameCanvas" width="900" height="550" aria-label="Videojuego NEXUS: Arena Mecánica"></canvas>
         <div id="stage-toast" class="toast" role="status" aria-live="polite"></div>
+        <button id="game-pause-button" class="game-pause-button" type="button" aria-label="Pausar juego" title="Pausar · P o Esc" hidden onclick="pauseGame()"><span>Ⅱ</span><b>PAUSA</b></button>
 
         <!-- CONTROLES TÁCTILES MÓVILES -->
         <div id="touch-controls">
@@ -318,11 +322,19 @@
         </div>
 
         <!-- MENÚ DE PAUSA -->
-        <div id="pause-screen" class="screen hidden">
-            <h1>JUEGO PAUSADO</h1>
-            <button class="btn" onclick="resumeGame()">Continuar</button>
-            <button class="btn" onclick="restartLevel()">Reiniciar Nivel</button>
-            <button class="btn" onclick="returnToMenu()">Menú Principal</button>
+        <div id="pause-screen" class="screen hidden pause-screen">
+            <div class="pause-card">
+                <div class="pause-emblem">Ⅱ</div>
+                <div class="pause-kicker">NEXUS · CENTRO DE CONTROL</div>
+                <h1>JUEGO PAUSADO</h1>
+                <p>La misión está detenida. Elige cómo continuar.</p>
+                <div class="pause-actions">
+                    <button class="btn pause-resume" onclick="resumeGame()"><span>▶</span> CONTINUAR</button>
+                    <button class="btn pause-restart" onclick="restartLevel()"><span>↻</span> REINICIAR NIVEL</button>
+                    <button class="btn pause-home" onclick="returnToMenu()"><span>⌂</span> MENÚ PRINCIPAL</button>
+                </div>
+                <small class="pause-hint">ATAJO · P o ESC PARA CONTINUAR</small>
+            </div>
         </div>
 
         <!-- PANTALLA DE GAME OVER -->
@@ -657,9 +669,11 @@
         }
 
         // --- MANEJADORES DE PANTALLAS ---
+        function syncPauseButton(){const button=document.getElementById('game-pause-button');if(button)button.hidden=gameState!=='PLAYING';}
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
             document.getElementById(screenId).classList.remove('hidden');
+            syncPauseButton();
         }
 
         function mixHex(hex,target,amount) {
@@ -694,7 +708,7 @@
             document.getElementById("campaign-route-progress").style.strokeDasharray="1000";document.getElementById("campaign-route-progress").style.strokeDashoffset=String(1000-(campaignUnlockedLevel-1)*165);
         }
         function showCampaignMap(){renderCampaignMap();showScreen("campaign-map-screen");}
-        function startMapLevel(level){if(level>campaignUnlockedLevel)return;if(level===6&&campaignBestStars.every(v=>v>0)){triggerVictory();return;}loadLevel(level);gameState="PLAYING";document.querySelectorAll(".screen").forEach(screen=>screen.classList.add("hidden"));showToast("SECTOR 0"+level+" · MISIÓN EN CURSO");}
+        function startMapLevel(level){if(level>campaignUnlockedLevel)return;if(level===6&&campaignBestStars.every(v=>v>0)){triggerVictory();return;}loadLevel(level);gameState="PLAYING";syncPauseButton();document.querySelectorAll(".screen").forEach(screen=>screen.classList.add("hidden"));showToast("SECTOR 0"+level+" · MISIÓN EN CURSO");}
         function enterMainMenu(){clearTimeout(introTimer);gameState="MENU";const skip=document.getElementById("intro-skip");skip.textContent="ENTRAR AL MENÚ";skip.onclick=enterMainMenu;showScreen("main-menu");}
         function showBootSequence(){gameState="MENU";const skip=document.getElementById("intro-skip");skip.textContent="ENTRAR AL MENÚ";skip.onclick=enterMainMenu;document.getElementById("intro-title").textContent="NEXUS DESPERTANDO";document.getElementById("intro-copy").textContent="Calibrando unidad N-07 y preparando el centro de mando...";showScreen("intro-screen");introTimer=setTimeout(enterMainMenu,4200);}
         function startGame(mode=1) {
@@ -720,6 +734,7 @@
             coresCollected = 0;
             loadLevel(campaignUnlockedLevel);
             gameState = "PLAYING";
+            syncPauseButton();
             showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 0"+currentLevel);
             document.getElementById('intro-screen').classList.add('hidden');
             document.getElementById('pause-screen').classList.add('hidden');
@@ -729,17 +744,20 @@
 
         function pauseGame() {
             gameState = "PAUSED";
+            syncPauseButton();
             showScreen('pause-screen');
         }
 
         function resumeGame() {
             gameState = "PLAYING";
+            syncPauseButton();
             document.getElementById('pause-screen').classList.add('hidden');
         }
 
         function restartLevel() {
             loadLevel(currentLevel);
             gameState = "PLAYING";
+            syncPauseButton();
             document.getElementById('pause-screen').classList.add('hidden');
         }
 
@@ -750,6 +768,7 @@
         function returnToMenu() {
             clearTimeout(introTimer);
             gameState = "MENU";
+            syncPauseButton();
             showScreen('main-menu');
         }
 
