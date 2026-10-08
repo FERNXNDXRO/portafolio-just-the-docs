@@ -31,7 +31,7 @@ También puedes jugarlo aquí mismo:
 
 ## Cómo jugar
 
-Puedes iniciar una partida individual o elegir **Modo cooperativo · 2 jugadores** en el menú del juego. En cooperativo, ambas personas juegan en la misma computadora, comparten la puntuación y colaboran durante los seis sectores. Cada robot tiene su propia integridad; la partida termina si ambos caen.
+Puedes iniciar una partida individual o elegir **Modo cooperativo · 2 jugadores** en el menú del juego. En cooperativo, ambas personas juegan en la misma computadora, comparten la puntuación y colaboran durante los seis sectores. Cada robot tiene **tres vidas** y su propia integridad. Al agotarse la integridad, pierde una vida y reaparece; la partida termina cuando el jugador individual, o ambos integrantes del equipo, se quedan sin vidas.
 
 ### Controles para dos jugadores
 
@@ -51,7 +51,7 @@ En el modo individual, también puedes usar las flechas para moverte y saltar.
 5. **Forja de titanio:** enfrenta enemigos más resistentes y recoge cinco núcleos.
 6. **Última defensa:** combate final contra Archon, con dos fases de ataque.
 
-La campaña aumenta la dificultad por etapas. Los núcleos suman puntos y recuperan parte de la integridad del equipo. El juego también guarda el récord de puntuación en el navegador.
+La campaña aumenta la dificultad por etapas. Cada jugador comienza con tres vidas; al perder una, reaparece con la integridad restaurada. Los núcleos suman puntos y recuperan parte de la integridad del equipo. El juego también guarda el récord de puntuación en el navegador.
 
 ## Proceso de ingeniería de prompting
 
