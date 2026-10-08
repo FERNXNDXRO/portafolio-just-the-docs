@@ -29,6 +29,7 @@
     .toast{position:absolute;z-index:12;left:50%;top:72px;transform:translate(-50%,-10px);padding:12px 20px;border:1px solid rgba(115,248,209,.48);border-radius:999px;background:rgba(5,16,19,.92);color:#dffdf3;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 28px rgba(115,248,209,.12);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap}.toast.visible{opacity:1;transform:translate(-50%,0)}
     .menu-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;margin-bottom:18px;border:1px solid rgba(115,248,209,.23);border-radius:999px;background:rgba(115,248,209,.07);color:#a9e8d4;font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.menu-kicker:before{content:"";width:7px;height:7px;border-radius:50%;background:#78f6cc;box-shadow:0 0 12px #78f6cc}
     .btn.secondary{background:#e9f6f0;border-color:#fff;color:#091413;font-weight:850}.btn.secondary:first-child{color:#091413;background:#e9f6f0;border-color:#fff}.btn.coop{background:linear-gradient(135deg,#ffe07a,#ff9d43);border-color:#fff0ae;color:#1b1004;font-weight:900}.coop-hint{font-size:.82rem;color:#f2f6f3}
+    #wardrobe-screen{background:linear-gradient(135deg,rgba(4,12,16,.97),rgba(4,12,16,.86))}.outfit-panel{width:min(520px,100%);padding:18px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(7,18,22,.9);box-shadow:0 18px 60px rgba(0,0,0,.35)}.outfit-preview{width:90px;height:110px;margin:0 auto 12px;position:relative;border-radius:46% 46% 18% 18%;background:linear-gradient(160deg,#f5f8f7 0%,var(--suit,#4bb79a) 38%,#193b3a 100%);border:3px solid rgba(255,255,255,.72);box-shadow:0 0 28px color-mix(in srgb,var(--suit,#4bb79a),transparent 45%)}.outfit-preview:before{content:"";position:absolute;width:48px;height:27px;left:18px;top:10px;border-radius:8px;background:#0c1a1d;border:2px solid rgba(255,255,255,.65);box-shadow:inset 0 0 0 4px rgba(125,245,218,.3)}.outfit-preview:after{content:"";position:absolute;width:16px;height:16px;left:34px;top:54px;border-radius:50%;background:#ff6b7a;box-shadow:0 0 16px currentColor}.outfit-name{margin:0 0 14px;color:#fff;font-weight:900;letter-spacing:.1em}.outfit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.outfit-choice{border:1px solid rgba(255,255,255,.22);border-radius:9px;padding:10px 6px;background:#132329;color:#fff;font:700 .75rem system-ui;cursor:pointer}.outfit-choice:before{content:"";display:block;width:22px;height:22px;margin:0 auto 6px;border:2px solid #fff;border-radius:50%;background:var(--swatch)}.outfit-choice.selected{outline:3px solid #ffd43b;background:#263b42}.custom-outfit{display:flex;align-items:center;justify-content:center;gap:10px;margin:14px 0;color:#fff;font-weight:800}.custom-outfit input{width:54px;height:38px;padding:2px;border:2px solid #fff;border-radius:8px;background:#111;cursor:pointer}.wardrobe-note{margin:10px 0 14px;font-size:.78rem}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
@@ -60,9 +61,31 @@
             <div>
                 <button class="btn" onclick="startGame()">Iniciar misión</button>
                 <button class="btn coop" type="button" onclick="startGame(2)">Jugar en cooperativo · 2 jugadores</button>
+                <button class="btn secondary" type="button" onclick="showScreen('wardrobe-screen')">Vestimenta del robot</button>
                 <button class="btn secondary" onclick="showScreen('controls-screen')">Controles</button>
                 <button class="btn secondary" onclick="showScreen('story-screen')">Historia</button>
             </div>
+        </div>
+
+        <!-- PERSONALIZACIÓN DEL ROBOT -->
+        <div id="wardrobe-screen" class="screen hidden">
+            <h1 style="font-size:clamp(1.7rem,4vw,3.2rem)">TALLER DE VESTIMENTA</h1>
+            <p>Elige un uniforme o usa el selector para crear tu propio color. La apariencia se guarda en este navegador.</p>
+            <div class="outfit-panel">
+                <div class="outfit-preview" id="outfit-preview"></div>
+                <div class="outfit-name" id="outfit-name">NEXUS MENTA</div>
+                <div class="outfit-grid">
+                    <button class="outfit-choice selected" style="--swatch:#4bb79a" onclick="selectOutfit(0)">Nexus</button>
+                    <button class="outfit-choice" style="--swatch:#d64b69" onclick="selectOutfit(1)">Carmesí</button>
+                    <button class="outfit-choice" style="--swatch:#4b80d6" onclick="selectOutfit(2)">Cobalto</button>
+                    <button class="outfit-choice" style="--swatch:#de9a2b" onclick="selectOutfit(3)">Solar</button>
+                    <button class="outfit-choice" style="--swatch:#8655c7" onclick="selectOutfit(4)">Violeta</button>
+                    <button class="outfit-choice" style="--swatch:#68a84f" onclick="selectOutfit(5)">Bosque</button>
+                </div>
+                <label class="custom-outfit">Diseña tu color <input id="custom-outfit" type="color" value="#4bb79a" oninput="setCustomOutfit(this.value)"></label>
+                <p class="wardrobe-note">El uniforme seleccionado también se usa en el modo cooperativo; los colores de J1 y J2 siguen diferenciando sus indicadores.</p>
+            </div>
+            <button class="btn" type="button" onclick="showScreen('main-menu')">Volver al menú</button>
         </div>
 
         <!-- PANTALLA DE CONTROLES -->
@@ -237,6 +260,16 @@
         let player2 = null;
         let playerLives = [3,3];
         let playersMode = 1;
+        const outfitPresets=[
+            {name:'NEXUS MENTA',light:'#d5fff3',main:'#4bb79a',dark:'#193b3a'},
+            {name:'CARMESÍ',light:'#ffd4df',main:'#d64b69',dark:'#4c2032'},
+            {name:'COBALTO',light:'#d6e5ff',main:'#4b80d6',dark:'#202c59'},
+            {name:'SOLAR',light:'#fff0ba',main:'#de9a2b',dark:'#503516'},
+            {name:'VIOLETA',light:'#ead8ff',main:'#8655c7',dark:'#38234e'},
+            {name:'BOSQUE',light:'#d5f8bc',main:'#68a84f',dark:'#254538'}
+        ];
+        let selectedOutfit=0;
+        let customOutfitColor='#4bb79a';
         let platforms = [];
         let enemies = [];
         let projectiles = [];
@@ -395,6 +428,20 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
             document.getElementById(screenId).classList.remove('hidden');
         }
+
+        function mixHex(hex,target,amount) {
+            const a=parseInt(hex.slice(1),16), b=parseInt(target.slice(1),16);
+            const r=Math.round(((a>>16)&255)*(1-amount)+((b>>16)&255)*amount);
+            const g=Math.round(((a>>8)&255)*(1-amount)+((b>>8)&255)*amount);
+            const bl=Math.round((a&255)*(1-amount)+(b&255)*amount);
+            return '#'+[r,g,bl].map(v=>v.toString(16).padStart(2,'0')).join('');
+        }
+        function activeOutfit(){return typeof selectedOutfit==='number'?outfitPresets[selectedOutfit]:{name:'A TU GUSTO',main:customOutfitColor,light:mixHex(customOutfitColor,'#ffffff',.48),dark:mixHex(customOutfitColor,'#071014',.62)};}
+        function refreshOutfitPreview(){const o=activeOutfit(),preview=document.getElementById('outfit-preview');if(!preview)return;preview.style.setProperty('--suit',o.main);document.getElementById('outfit-name').textContent=o.name;document.querySelectorAll('.outfit-choice').forEach((b,i)=>b.classList.toggle('selected',typeof selectedOutfit==='number'&&selectedOutfit===i));document.getElementById('custom-outfit').value=customOutfitColor;}
+        function selectOutfit(index){selectedOutfit=index;customOutfitColor=outfitPresets[index].main;try{localStorage.setItem('nexus-outfit',String(index));localStorage.setItem('nexus-custom-outfit',customOutfitColor);}catch(e){}refreshOutfitPreview();}
+        function setCustomOutfit(color){customOutfitColor=color;selectedOutfit='custom';try{localStorage.setItem('nexus-outfit','custom');localStorage.setItem('nexus-custom-outfit',color);}catch(e){}refreshOutfitPreview();}
+        function loadOutfitPreference(){try{const saved=localStorage.getItem('nexus-outfit');customOutfitColor=localStorage.getItem('nexus-custom-outfit')||customOutfitColor;if(saved==='custom')selectedOutfit='custom';else if(saved!==null&&Number.isInteger(Number(saved))&&outfitPresets[Number(saved)])selectedOutfit=Number(saved);}catch(e){}refreshOutfitPreview();}
+        loadOutfitPreference();
 
         function startGame(mode=1) {
             playersMode = mode;
@@ -786,21 +833,18 @@
         function drawPlayer(player,tint,label) {
             if(!player||player.hp<=0)return;
             const x=player.x,y=player.y,w=player.width,h=player.height;if(player.hurtTimer>0&&player.hurtTimer%4>=2)return;ctx.save();if(player.isDashing){ctx.globalAlpha=.78;ctx.shadowColor=tint;ctx.shadowBlur=22;}
-            const a=ctx.createLinearGradient(x,y,x+w,y+h);a.addColorStop(0,player.isDashing?"#d0fff2":"#a4b5aa");a.addColorStop(.4,player.isDashing?"#48d9bb":"#556a65");a.addColorStop(1,"#17272a");
+            const outfit=activeOutfit();
+            const a=ctx.createLinearGradient(x,y,x+w,y+h);a.addColorStop(0,player.isDashing?"#ffffff":outfit.light);a.addColorStop(.4,player.isDashing?"#48d9bb":outfit.main);a.addColorStop(1,outfit.dark);
             ctx.fillStyle="#1a292d";ctx.fillRect(x+2,y+15,7,19);ctx.fillStyle="#50615c";ctx.fillRect(x+3,y+17,5,12);ctx.fillStyle="#283a3c";ctx.fillRect(x+7,y+37,8,8);ctx.fillRect(x+21,y+37,8,8);ctx.fillStyle="#111b1e";ctx.fillRect(x+4,y+43,12,3);ctx.fillRect(x+19,y+43,12,3);
             ctx.fillStyle=a;ctx.beginPath();ctx.moveTo(x+8,y+14);ctx.lineTo(x+26,y+14);ctx.lineTo(x+30,y+34);ctx.lineTo(x+25,y+39);ctx.lineTo(x+8,y+38);ctx.lineTo(x+4,y+33);ctx.closePath();ctx.fill();ctx.strokeStyle="rgba(224,245,232,.65)";ctx.stroke();
             ctx.fillStyle="#273a3c";ctx.beginPath();ctx.arc(x+6,y+17,4,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(x+28,y+17,4,0,Math.PI*2);ctx.fill();ctx.shadowColor=tint;ctx.shadowBlur=14;ctx.fillStyle=tint;ctx.beginPath();ctx.arc(x+17,y+25,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
             ctx.fillStyle="#778980";ctx.beginPath();ctx.roundRect(x+7,y,20,16,4);ctx.fill();ctx.strokeStyle="rgba(233,248,238,.72)";ctx.stroke();ctx.fillStyle="#0b1719";ctx.beginPath();ctx.roundRect(x+9,y+4,16,7,2);ctx.fill();ctx.shadowColor="#8effdf";ctx.shadowBlur=10;ctx.fillStyle=tint;ctx.fillRect(player.facing==="right"?x+16:x+9,y+6,9,2);ctx.shadowBlur=0;if(label){ctx.fillStyle="#fff";ctx.font="900 9px system-ui";ctx.textAlign="center";ctx.fillText(label,x+w/2,y-5);ctx.textAlign="left";}ctx.restore();
         }
         function drawHUD() {
-            ctx.save();ctx.fillStyle="rgba(5,12,15,.91)";ctx.fillRect(0,0,900,54);ctx.fillStyle="rgba(115,248,209,.12)";ctx.fillRect(0,52,900,2);
-            ctx.fillStyle="#d7e7df";ctx.font="800 10px system-ui";ctx.fillText("N-07",20,18);ctx.fillStyle="#7c9990";ctx.font="700 8px system-ui";ctx.fillText("UNIDAD DE MANTENIMIENTO",20,31);
-            ctx.fillStyle="#ff7b88";ctx.font="700 9px system-ui";ctx.fillText("INTEGRIDAD",190,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(190,24,128,9);ctx.fillStyle="#ff6879";ctx.fillRect(190,24,128*Math.max(0,player.hp/player.maxHp),9);
-            ctx.fillStyle="#f0bd68";ctx.font="800 8px system-ui";
-            if(playersMode===2&&player2){ctx.fillText("J1 · VIDAS "+playerLives[0],20,45);ctx.fillStyle="#76b8ff";ctx.fillText("J2 · VIDAS "+playerLives[1],105,45);}
-            else ctx.fillText("VIDAS · "+playerLives[0],20,45);
-            ctx.fillStyle="#75f3cd";ctx.font="700 9px system-ui";ctx.fillText("ENERGÍA",338,17);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(338,24,105,9);ctx.fillStyle="#54dcb8";ctx.fillRect(338,24,105*Math.max(0,player.energy/player.maxEnergy),9);
-            if(playersMode===2&&player2){ctx.fillStyle="#76b8ff";ctx.fillText("J2 · VIDA",190,43);ctx.fillStyle="rgba(255,255,255,.1)";ctx.fillRect(248,37,90,7);ctx.fillStyle="#55a7ff";ctx.fillRect(248,37,90*Math.max(0,player2.hp/player2.maxHp),7);}
+            ctx.save();ctx.fillStyle="rgba(5,12,15,.94)";ctx.fillRect(0,0,900,66);ctx.fillStyle="rgba(115,248,209,.2)";ctx.fillRect(0,64,900,2);
+            ctx.fillStyle="#ff8a98";ctx.font="800 9px system-ui";ctx.fillText("J1 · INTEGRIDAD",20,17);ctx.fillStyle="rgba(255,255,255,.14)";ctx.fillRect(20,23,128,9);ctx.fillStyle="#ff6879";ctx.fillRect(20,23,128*Math.max(0,player.hp/player.maxHp),9);ctx.fillStyle="#fff";ctx.font="800 9px system-ui";ctx.fillText("VIDAS × "+playerLives[0],20,49);
+            if(playersMode===2&&player2){ctx.fillStyle="#76b8ff";ctx.font="800 9px system-ui";ctx.fillText("J2 · INTEGRIDAD",174,17);ctx.fillStyle="rgba(255,255,255,.14)";ctx.fillRect(174,23,128,9);ctx.fillStyle="#55a7ff";ctx.fillRect(174,23,128*Math.max(0,player2.hp/player2.maxHp),9);ctx.fillStyle="#fff";ctx.font="800 9px system-ui";ctx.fillText("VIDAS × "+playerLives[1],174,49);}
+            ctx.fillStyle="#75f3cd";ctx.font="800 9px system-ui";ctx.fillText("ENERGÍA",338,17);ctx.fillStyle="rgba(255,255,255,.14)";ctx.fillRect(338,23,105,9);ctx.fillStyle="#54dcb8";ctx.fillRect(338,23,105*Math.max(0,player.energy/player.maxEnergy),9);
             const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL","JARDÍN DE SILICIO","FORJA DE TITANIO","ÚLTIMA DEFENSA"];ctx.fillStyle="#eaf5ef";ctx.font="800 10px system-ui";ctx.fillText(names[currentLevel-1]||"SECTOR",486,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("SECTOR 0"+currentLevel+" / 06",486,34);
             ctx.fillStyle="#f0bd68";ctx.font="700 9px system-ui";ctx.fillText("NÚCLEOS "+levelCoresCollected+" / "+totalCoresInLevel,626,20);ctx.fillStyle="#d3e2db";ctx.font="800 10px system-ui";ctx.fillText(String(score).padStart(6,"0"),786,20);ctx.fillStyle="#83a49a";ctx.font="700 8px system-ui";ctx.fillText("PUNTUACIÓN",786,34);
             ctx.fillStyle="rgba(5,12,15,.82)";ctx.fillRect(0,516,900,34);ctx.fillStyle="rgba(115,248,209,.16)";ctx.fillRect(0,516,900,1);ctx.fillStyle="#829790";ctx.font="700 8px system-ui";if(playersMode===2){ctx.fillStyle="#ff8994";ctx.fillText("J1 A/D · W · ESPACIO · SHIFT IZQ",20,537);ctx.fillStyle="#76b8ff";ctx.fillText("J2 FLECHAS · ENTER · SHIFT DER",305,537);}else{ctx.fillText("A / D MOVER",20,537);ctx.fillText("W SALTAR",143,537);ctx.fillText("ESPACIO DISPARAR",253,537);ctx.fillText("SHIFT IMPULSO",408,537);}ctx.fillStyle=portal&&portal.active?"#87f5cf":"#e5ba75";ctx.fillText(portal?(portal.active?"OBJETIVO · VE A LA SALIDA":"OBJETIVO · BUSCA LOS NÚCLEOS"):"OBJETIVO · DESTRUYE ARCHON",622,537);ctx.restore();
