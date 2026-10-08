@@ -75,6 +75,17 @@ void loop() {
 7. Si un servo zumba, se calienta o intenta forzar una articulación, apaga la fuente y corrige el sentido, el montaje o el rango de movimiento.
 8. Prueba la pinza con una pelota de 6 cm. Registra si logra sujetarla durante 5 segundos y agrega aquí el video de evidencia.
 
+## Evidencia fotográfica del ensamble y control
+
+Estas fotografías muestran el armado del brazo, sus servomotores y las conexiones con Arduino y los potenciómetros.
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:18px 0;">
+  <figure style="margin:0;"><img src="{{ '/assets/img/semana-5/vista-general-brazo-control.jpg' | relative_url }}" alt="Vista general del brazo robot ensamblado y su circuito de control" loading="lazy" style="width:100%;border-radius:12px;"><figcaption>Vista general del brazo robot y el sistema de control.</figcaption></figure>
+  <figure style="margin:0;"><img src="{{ '/assets/img/semana-5/detalle-mecanismo-brazo.jpg' | relative_url }}" alt="Detalle lateral del mecanismo y las uniones del brazo robot" loading="lazy" style="width:100%;border-radius:12px;"><figcaption>Detalle de la estructura, articulaciones y servomotores.</figcaption></figure>
+  <figure style="margin:0;"><img src="{{ '/assets/img/semana-5/conexiones-arduino-potenciometros.jpg' | relative_url }}" alt="Detalle de conexiones entre Arduino, protoboard y potenciómetros" loading="lazy" style="width:100%;border-radius:12px;"><figcaption>Conexiones del Arduino y los potenciómetros en la protoboard.</figcaption></figure>
+  <figure style="margin:0;"><img src="{{ '/assets/img/semana-5/montaje-servos-y-potenciometros.jpg' | relative_url }}" alt="Brazo conectado al Arduino, los servomotores y la protoboard de control" loading="lazy" style="width:100%;border-radius:12px;"><figcaption>Prueba del brazo con sus servos y controles conectados.</figcaption></figure>
+</div>
+
 ## Videos de movimiento
 
 Los siguientes videos se pueden reproducir directamente desde esta página con el control de reproducción.
