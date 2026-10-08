@@ -70,6 +70,9 @@
     .avatar-tip{margin:-3px 0 9px;color:#93b9ad;font-size:.62rem;font-weight:900;letter-spacing:.16em}.customize-column .customize-section{margin:0;padding:15px}.customize-column .color-section{margin-top:12px}.customize-column .outfit-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.customize-column .outfit-choice{min-width:0}.customize-column .custom-outfit{justify-content:flex-start;font-size:.8rem}.armor-label{margin:14px 0 7px;color:#f0cf84;font-size:.64rem;font-weight:950;letter-spacing:.15em}.armor-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.armor-choice{min-width:0;display:flex;flex-direction:column;align-items:center;gap:7px;padding:9px 4px;border:1px solid rgba(255,255,255,.16);border-radius:9px;background:#101f24;color:#dcebe4;font:750 .62rem system-ui;cursor:pointer}.armor-choice.selected{border-color:#ffd369;box-shadow:0 0 0 2px rgba(255,211,105,.2);background:#24342e}.armor-chip{width:25px;height:29px;border:2px solid #d7e8df;border-radius:9px 9px 5px 5px;background:linear-gradient(135deg,var(--suit-light),var(--suit));box-shadow:inset 0 -7px 0 var(--suit-dark)}.armor-chip.pilot{border-radius:5px 5px 9px 9px;transform:skewY(-5deg)}.armor-chip.heavy{width:30px;border-width:4px;border-radius:5px;background:linear-gradient(90deg,var(--suit-dark),var(--suit-light),var(--suit-dark))}.armor-chip.stealth{border-radius:13px 13px 3px 3px;background:linear-gradient(135deg,#142025,var(--suit-dark));border-color:#7faaa0}
     @media(max-width:820px){.workshop-layout{grid-template-columns:1fr;gap:6px}.avatar-stage{height:240px}.robot-figure{transform:scale(.84);animation:robot-turn 14s linear infinite}.avatar-platform{bottom:22px}.avatar-glow{bottom:34px}.avatar-orbit{width:190px;height:190px}.customize-column .customize-section{padding:11px}.outfit-panel{width:min(620px,100%)}.avatar-tip{font-size:.58rem}}
     @media(max-width:520px){.avatar-stage{height:200px}.robot-figure{transform:scale(.72)}.avatar-platform{bottom:15px}.avatar-glow{bottom:28px}.armor-grid{gap:4px}.armor-choice{font-size:.56rem;padding:7px 2px}.accessory-grid{gap:6px}.accessory-choice{min-height:42px;font-size:.66rem;padding:8px 5px}.customize-heading{font-size:.7rem}}
+
+    #level-review-screen{background:radial-gradient(ellipse at 50% 42%,rgba(118,84,25,.32),rgba(4,12,16,.97) 68%)}.review-kicker{color:#b7d8ca;font-size:.68rem;font-weight:950;letter-spacing:.24em}.review-title{font-size:clamp(2rem,5vw,4.4rem);letter-spacing:.1em}.review-sector{margin:10px 0 2px;color:#f0bd68}.review-stars{display:flex;gap:13px;justify-content:center;margin:12px 0 4px;color:#37413f;font-size:clamp(3.5rem,9vw,6rem);line-height:1;text-shadow:0 7px 22px rgba(0,0,0,.35)}.review-stars span{transform:scale(.7);opacity:.3}.review-stars span.earned{color:#ffd45e;opacity:1;transform:scale(1);text-shadow:0 0 12px rgba(255,211,94,.65),0 0 35px rgba(255,184,54,.28);animation:star-pop .45s cubic-bezier(.2,1.7,.4,1) both}.review-stars span:nth-child(2).earned{animation-delay:.16s}.review-stars span:nth-child(3).earned{animation-delay:.32s}.review-rating{margin:5px 0 12px;color:#f2f8f3;font-size:1.05rem;font-weight:850}.review-stats{padding:10px 18px;border:1px solid rgba(240,189,104,.35);border-radius:999px;background:rgba(30,28,19,.62);color:#fff0c7;font-weight:800}.review-hint{margin:14px auto;max-width:480px}.review-next{margin-top:8px;min-width:min(360px,90%)}@keyframes star-pop{from{transform:scale(.15) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+    @media(prefers-reduced-motion:reduce){.review-stars span.earned{animation:none}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important}}
 </style>
 </head>
@@ -223,6 +226,19 @@
             <button class="btn" onclick="returnToMenu()">Menú Principal</button>
         </div>
 
+        <!-- EVALUACIÓN DEL SECTOR -->
+        <div id="level-review-screen" class="screen hidden">
+            <div class="review-kicker">REPORTE DE MISIÓN</div>
+            <h1 class="review-title" id="review-title">SECTOR COMPLETADO</h1>
+            <h2 class="review-sector" id="review-sector">SECTOR 01</h2>
+            <div class="review-stars" id="review-stars" aria-label="Evaluación de tres estrellas"><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-rating" id="review-rating">¡Misión impecable!</p>
+            <div class="review-stats" id="review-stats">Vidas usadas: 0</div>
+            <p class="review-hint" id="review-hint">Las estrellas se calculan según las vidas usadas en este sector.</p>
+            <button class="btn review-next" id="review-next" type="button" onclick="advanceAfterReview()">CONTINUAR AL SIGUIENTE SECTOR</button>
+            <button class="btn secondary" type="button" onclick="returnToMenu()">Menú principal</button>
+        </div>
+
         <!-- PANTALLA DE VICTORIA -->
         <div id="victory-screen" class="screen hidden">
             <h1>ARCHON DESTRUIDO</h1>
@@ -355,6 +371,8 @@
         let player = {};
         let player2 = null;
         let playerLives = [3,3];
+        let levelLifeStart = [3,3];
+        let levelStars = [0,0,0,0,0,0];
         let playersMode = 1;
         const outfitPresets=[
             {name:'NEXUS MENTA',light:'#d5fff3',main:'#4bb79a',dark:'#193b3a'},
@@ -419,6 +437,7 @@
             currentLevel = levelNum;
             levelCoresCollected = 0;
             resetPlayer();
+            levelLifeStart=playerLives.slice();
             platforms = [];
             enemies = [];
             projectiles = [];
@@ -565,6 +584,7 @@
             clearTimeout(introTimer);
             playersMode = mode;
             playerLives=[3,3];
+            levelStars=[0,0,0,0,0,0];
             initAudio();
             score = 0;
             enemiesDefeated = 0;
@@ -612,11 +632,27 @@
             showScreen('gameover-screen');
         }
 
+        function completeLevel() {
+            if(gameState!=="PLAYING")return;
+            const livesUsed=Math.max(0,(levelLifeStart[0]+levelLifeStart[1])-(playerLives[0]+playerLives[1]));
+            const stars=livesUsed===0?3:livesUsed===1?2:1;
+            levelStars[currentLevel-1]=stars;
+            const names=["LABORATORIO","FÁBRICA","NÚCLEO CENTRAL","JARDÍN DE SILICIO","FORJA DE TITANIO","ÚLTIMA DEFENSA"];
+            document.getElementById("review-title").textContent=currentLevel===6?"¡CAMPAÑA COMPLETADA!":"SECTOR COMPLETADO";
+            document.getElementById("review-sector").textContent=`SECTOR 0${currentLevel} · ${names[currentLevel-1]}`;
+            document.querySelectorAll("#review-stars span").forEach((star,index)=>{star.classList.toggle("earned",index<stars);});
+            document.getElementById("review-rating").textContent=stars===3?"¡Perfecto! No perdiste vidas.":stars===2?"¡Buen trabajo! Perdiste una vida.":"¡Sector superado! Sigue intentando conservar tus vidas.";
+            document.getElementById("review-stats").textContent=`Vidas usadas en este sector: ${livesUsed} · Puntuación: ${score}`;
+            document.getElementById("review-hint").textContent=stars===3?"3 estrellas · 0 vidas usadas":"Cada vida perdida reduce una estrella; con 2 o más vidas usadas obtienes 1 estrella.";
+            const next=document.getElementById("review-next");next.textContent=currentLevel===6?"VER RESULTADO FINAL":"CONTINUAR AL SECTOR 0"+(currentLevel+1);gameState="LEVEL_COMPLETE";playSound('core');showScreen("level-review-screen");
+        }
+        function advanceAfterReview(){if(currentLevel>=6){triggerVictory();return;}const next=currentLevel+1;loadLevel(next);gameState="PLAYING";document.getElementById("level-review-screen").classList.add("hidden");showToast("SECTOR 0"+next+" · CONTINÚA LA CAMPAÑA");}
         function triggerVictory() {
             saveBestScore();
             gameState = "VICTORY";
             playSound('core');
-            document.getElementById('vic-stats').innerText = `Puntuación Final: ${score} | Enemigos Derrotados: ${enemiesDefeated}`;
+            const starsEarned=levelStars.reduce((total,value)=>total+value,0);
+            document.getElementById('vic-stats').innerText = `Puntuación Final: ${score} | Enemigos Derrotados: ${enemiesDefeated} | Estrellas: ${starsEarned}/18`;
             showScreen('victory-screen');
         }
 
@@ -846,8 +882,7 @@
                                     particles.push({ x: en.x + en.width/2, y: en.y + en.height/2, vx: (Math.random()-0.5)*6, vy: (Math.random()-0.5)*6, life: 25, color: '#ff3366', size: 5 });
                                 }
                                 if (en.type === 'boss') {
-                                    if(currentLevel<6){const cleared=currentLevel;loadLevel(cleared+1);showToast("SECTOR 0"+cleared+" COMPLETADO · NUEVA ZONA");}
-                                    else triggerVictory();
+                                    completeLevel();
                                 }
                             }
                             break;
@@ -877,9 +912,7 @@
             // --- CHECAR PORTAL DE NIVEL ---
             if (portal && portal.active) {
                 if (activePlayers().some(p=>Math.hypot((p.x+p.width/2)-(portal.x+portal.width/2),(p.y+p.height/2)-(portal.y+portal.height/2))<35)) {
-                    if (currentLevel < 6) {
-                        const next=currentLevel+1;loadLevel(next);showToast("SECTOR 0"+next+" · OBJETIVO ACTUALIZADO");
-                    }
+                    completeLevel();
                 }
             }
         }
