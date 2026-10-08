@@ -51,7 +51,7 @@ En el modo individual, también puedes usar las flechas para moverte y saltar. D
 5. **Forja de titanio:** enfrenta enemigos más resistentes y recoge cinco núcleos.
 6. **Última defensa:** combate final contra Archon, con dos fases de ataque.
 
-La campaña aumenta la dificultad por etapas y avanza al siguiente sector al pulsar **Continuar**; conserva la puntuación y las vidas restantes, no reinicia desde el sector 1. Al terminar cada sector aparece una evaluación de tres estrellas: 3 si no se gastaron vidas, 2 si se perdió una y 1 si se perdieron dos o más. Cada jugador comienza con tres vidas; al perder una, reaparece con la integridad restaurada. Los núcleos suman puntos y recuperan parte de la integridad del equipo. El juego también guarda el récord de puntuación en el navegador.
+La campaña tiene seis sectores que aumentan de dificultad, desde el laboratorio hasta la última defensa. Al terminar un sector aparece una evaluación de tres estrellas: 3 si no se gastaron vidas, 2 si se perdió una y 1 si se perdieron dos o más. Al iniciar cada sector, cada jugador recibe tres vidas nuevas; al perder una, reaparece con la integridad restaurada. El mapa de campaña muestra la ruta, los sectores desbloqueados y las estrellas obtenidas; desde ahí se inicia el siguiente nivel. La puntuación y las estrellas ganadas se conservan durante la campaña. El siguiente sector continúa desde el mapa, sin regresar al sector 1. Los núcleos suman puntos y recuperan parte de la integridad del equipo. El juego también guarda el récord de puntuación en el navegador.
 
 ## Proceso de ingeniería de prompting
 
