@@ -70,7 +70,7 @@ Luego refiné el resultado por iteraciones: pedí una presentación visual más 
 - **JavaScript y Canvas 2D** dibujan y actualizan el mundo, las colisiones, los enemigos, proyectiles, objetos y niveles.
 - **Web Audio API** crea efectos de sonido durante la partida.
 
-Antes de iniciar cada partida, aparece una breve animación de activación de N-07; puedes saltarla con el botón de inicio rápido.
+Al abrir la página aparece una animación de arranque de NEXUS antes del menú principal; puedes entrar al menú con el botón en pantalla o esperar a que termine. Al iniciar una partida también se muestra una breve activación de los robots.
 
 El archivo del juego está publicado en este mismo repositorio: [ver el código fuente de NEXUS](https://github.com/FERNXNDXRO/portafolio-just-the-docs/blob/main/nexus-arena-mecanica.html).
 
