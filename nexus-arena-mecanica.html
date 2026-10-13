@@ -364,7 +364,7 @@
             <p class="review-rating" id="review-rating">¡Misión impecable!</p>
             <div class="review-stats" id="review-stats">Vidas usadas: 0</div>
             <p class="review-hint" id="review-hint">Las estrellas se calculan según las vidas usadas en este sector.</p>
-            <button class="btn review-next" id="review-next" type="button" onclick="showCampaignMap()">CONTINUAR AL MAPA</button>
+            <button class="btn review-next" id="review-next" type="button" onclick="continueAfterLevel()">CONTINUAR AL MAPA</button>
             <button class="btn secondary" type="button" onclick="returnToMenu()">Menú principal</button>
         </div>
 
@@ -723,7 +723,8 @@
             document.getElementById("campaign-route-progress").style.strokeDasharray="1000";document.getElementById("campaign-route-progress").style.strokeDashoffset=String(1000-(campaignUnlockedLevel-1)*165);
         }
         function showCampaignMap(){renderCampaignMap();showScreen("campaign-map-screen");}
-        function startMapLevel(level){if(level>campaignUnlockedLevel)return;if(level===6&&campaignBestStars.every(v=>v>0)){triggerVictory();return;}loadLevel(level);gameState="PLAYING";syncPauseButton();document.querySelectorAll(".screen").forEach(screen=>screen.classList.add("hidden"));showToast("SECTOR 0"+level+" · MISIÓN EN CURSO");}
+        function continueAfterLevel(){if(currentLevel===6){triggerVictory();return;}showCampaignMap();}
+        function startMapLevel(level){if(level>campaignUnlockedLevel)return;loadLevel(level);gameState="PLAYING";syncPauseButton();document.querySelectorAll(".screen").forEach(screen=>screen.classList.add("hidden"));showToast("SECTOR 0"+level+" · MISIÓN EN CURSO");}
         function enterMainMenu(){clearTimeout(introTimer);gameState="MENU";const skip=document.getElementById("intro-skip");skip.textContent="ENTRAR AL MENÚ";skip.onclick=enterMainMenu;showScreen("main-menu");}
         function showBootSequence(){gameState="INTRO";const skip=document.getElementById("intro-skip");skip.textContent="SALTAR CINEMÁTICA";skip.onclick=enterMainMenu;document.getElementById("intro-title").textContent="LA ÚLTIMA BATALLA";document.getElementById("intro-copy").textContent="La guerra consumió la estación. En el silencio, una unidad olvidada aún espera despertar.";introStartedAt=performance.now();showScreen("intro-screen");introTimer=setTimeout(enterMainMenu,11000);}
         function startGame(mode=1) {
