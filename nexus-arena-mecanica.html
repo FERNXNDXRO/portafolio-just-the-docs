@@ -891,7 +891,7 @@
         // --- BUCLE PRINCIPAL DE ACTUALIZACIÓN ---
         function update() {
             if (gameState !== "PLAYING") return;
-            const mapWidth = [0,1400,1600,1500,1850,1900,1200][currentLevel] || 1400;
+            const mapWidth = [0,1400,1600,1500,1850,1900,1750][currentLevel] || 1400;
 
             // Recuperación gradual de energía
             if (player.energy < player.maxEnergy) {
