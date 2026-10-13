@@ -883,7 +883,7 @@
             else {p.vy=Math.min(12,p.vy+.45);if(keys['ArrowUp']&&p.grounded){p.vy=p.jumpForce;p.grounded=false;playSound('jump');}}
             if((keys['Enter']||keys['Numpad0'])&&p.shootCooldown===0&&p.energy>=8){p.shootCooldown=14;p.energy-=8;projectiles.push({x:p.facing==='right'?p.x+p.width:p.x-12,y:p.y+16,vx:p.facing==='right'?10:-10,vy:0,radius:4,fromPlayer:true,color:'#55a7ff'});playSound('shoot');}
             p.x+=p.vx;resolveCollisionsX(p);p.grounded=false;p.y+=p.vy;resolveCollisionsY(p);
-            const mapWidth=[0,1400,1600,1500,1850,1900,1200][currentLevel]||1400;
+            const mapWidth=[0,1400,1600,1500,1850,1900,1750][currentLevel]||1400;
             p.x=Math.max(0,Math.min(mapWidth-p.width,p.x));
             if(p.y>canvas.height+100)loseLife(p);
         }
@@ -1215,7 +1215,7 @@
             if(gameState==="INTRO"){drawIntroCinematic();return;}
             if(gameState==="MENU"){drawMenuBackdrop();return;}
             ctx.save();const sx=(Math.random()-.5)*screenShake,sy=(Math.random()-.5)*screenShake;ctx.translate(-camera.x+sx,sy);
-            const mapWidth=[0,1400,1600,1500,1850,1900,1200][currentLevel]||1400;
+            const mapWidth=[0,1400,1600,1500,1850,1900,1750][currentLevel]||1400;
             const palettes=[["#071116","#10242a","#43d8b2"],["#111018","#28232e","#d98668"],["#100d17","#251326","#de4f83"],["#091710","#18352c","#8fe66c"],["#1c100c","#3a2119","#ff934e"],["#140b18","#35152c","#ff5577"]],pal=palettes[currentLevel-1]||palettes[0];
             const sky=ctx.createLinearGradient(camera.x,0,camera.x+camera.width,canvas.height);sky.addColorStop(0,pal[0]);sky.addColorStop(.55,pal[1]);sky.addColorStop(1,"#080d11");ctx.fillStyle=sky;ctx.fillRect(camera.x,0,mapWidth,canvas.height);
             ctx.save();const px=camera.x*.24;
