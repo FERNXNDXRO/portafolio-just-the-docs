@@ -686,8 +686,9 @@
         // --- MANEJADORES DE PANTALLAS ---
         function syncPauseButton(){const button=document.getElementById('game-pause-button');if(button)button.hidden=gameState!=='PLAYING';}
         function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-            document.getElementById(screenId).classList.remove('hidden');
+            document.querySelectorAll('.screen').forEach(s => { s.style.display = 'none'; s.classList.add('hidden'); });
+            const target = document.getElementById(screenId);
+            if (target) { target.style.display = ''; target.classList.remove('hidden'); }
             syncPauseButton();
         }
 
@@ -744,8 +745,8 @@
             coresCollected = 0;
             loadLevel(campaignUnlockedLevel);
             gameState = "PLAYING";
-            // Ocultar todas las pantallas del menú para que el juego quede al frente.
-            document.querySelectorAll(".screen").forEach(screen => screen.classList.add("hidden"));
+            // Ocultar las capas de interfaz explícitamente; el canvas queda visible como juego.
+            document.querySelectorAll(".screen").forEach(screen => { screen.style.display = "none"; screen.classList.add("hidden"); });
             syncPauseButton();
             showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 0"+currentLevel);
         }
