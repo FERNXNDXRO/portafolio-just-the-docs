@@ -744,12 +744,10 @@
             coresCollected = 0;
             loadLevel(campaignUnlockedLevel);
             gameState = "PLAYING";
+            // Ocultar todas las pantallas del menú para que el juego quede al frente.
+            document.querySelectorAll(".screen").forEach(screen => screen.classList.add("hidden"));
             syncPauseButton();
             showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 0"+currentLevel);
-            document.getElementById('intro-screen').classList.add('hidden');
-            document.getElementById('pause-screen').classList.add('hidden');
-            document.getElementById('gameover-screen').classList.add('hidden');
-            document.getElementById('victory-screen').classList.add('hidden');
         }
 
         function pauseGame() {
