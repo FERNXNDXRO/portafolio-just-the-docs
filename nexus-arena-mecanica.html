@@ -686,9 +686,19 @@
         // --- MANEJADORES DE PANTALLAS ---
         function syncPauseButton(){const button=document.getElementById('game-pause-button');if(button)button.hidden=gameState!=='PLAYING';}
         function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => { s.style.display = 'none'; s.classList.add('hidden'); });
+            document.querySelectorAll('.screen').forEach(s => {
+                s.hidden = true;
+                s.style.display = 'none';
+                s.classList.add('hidden');
+                s.setAttribute('aria-hidden', 'true');
+            });
             const target = document.getElementById(screenId);
-            if (target) { target.style.display = ''; target.classList.remove('hidden'); }
+            if (target) {
+                target.hidden = false;
+                target.style.display = 'flex';
+                target.classList.remove('hidden');
+                target.setAttribute('aria-hidden', 'false');
+            }
             syncPauseButton();
         }
 
@@ -746,7 +756,19 @@
             loadLevel(campaignUnlockedLevel);
             gameState = "PLAYING";
             // Ocultar las capas de interfaz explícitamente; el canvas queda visible como juego.
-            document.querySelectorAll(".screen").forEach(screen => { screen.style.display = "none"; screen.classList.add("hidden"); });
+            document.querySelectorAll(".screen").forEach(screen => {
+                screen.hidden = true;
+                screen.style.display = "none";
+                screen.classList.add("hidden");
+                screen.setAttribute("aria-hidden", "true");
+            });
+            const menu = document.getElementById("main-menu");
+            if (menu) {
+                menu.hidden = true;
+                menu.style.display = "none";
+                menu.classList.add("hidden");
+                menu.setAttribute("aria-hidden", "true");
+            }
             syncPauseButton();
             showToast(mode===2 ? "COOPERATIVO · J1 + J2" : "MISIÓN INICIADA · SECTOR 0"+currentLevel);
         }
